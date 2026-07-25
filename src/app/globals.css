@@ -1,26 +1,113 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+ * Reserve My Spot -- sibling of the Outlaw Apps design system (dark base, Inter),
+ * but the accent shifts from the hub's orange to a wellness teal. Orange is kept
+ * for the one thing that has to shout: a member about to lose their spot.
+ */
+@theme {
+  --color-ink: #070908;
+  --color-shell: #0d100f;
+  --color-surface: #141817;
+  --color-surface-2: #1b201f;
+  --color-line: #262c2b;
+  --color-line-soft: #1e2423;
+  --color-text: #f2f5f4;
+  --color-muted: #8d9a97;
+  --color-faint: #5f6b69;
+
+  --color-accent: #2fd4b4;
+  --color-accent-dim: #1c8672;
+  --color-accent-wash: #0f2c27;
+
+  --color-alert: #ff6b35;
+  --color-alert-wash: #2e1509;
+  --color-warn: #f4b942;
+  --color-warn-wash: #2b2109;
+  --color-info: #6aa5ff;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html,
+body {
+  background: var(--color-ink);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  overscroll-behavior-y: none;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+input,
+select,
+textarea,
+button {
+  font: inherit;
+  color: inherit;
+}
+
+input[type='time']::-webkit-calendar-picker-indicator,
+input[type='date']::-webkit-calendar-picker-indicator,
+input[type='datetime-local']::-webkit-calendar-picker-indicator {
+  filter: invert(1) opacity(0.5);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-ink);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-line);
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #33403d;
+}
+
+@keyframes rms-pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgb(47 212 180 / 0.45);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgb(47 212 180 / 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgb(47 212 180 / 0);
+  }
+}
+
+.rms-live {
+  animation: rms-pulse-ring 2.2s ease-out infinite;
+}
+
+@keyframes rms-rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rms-rise {
+  animation: rms-rise 0.28s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rms-live,
+  .rms-rise {
+    animation: none;
+  }
 }
