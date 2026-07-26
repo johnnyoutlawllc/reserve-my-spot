@@ -1,25 +1,10 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
-const PRIMARY_HOST = "reservemy.spot";
-
-const nextConfig: NextConfig = {
-  async rewrites() {
-    return {
-      // beforeFiles: must run ahead of the filesystem, otherwise "/" resolves
-      // to the real root page and this never fires.
-      beforeFiles: [
-        // On the custom domain, the bare root serves the member spot page.
-        // The .vercel.app root still shows the three-lane demo picker.
-        {
-          source: "/",
-          destination: "/m/spot",
-          has: [{ type: "host", value: PRIMARY_HOST }],
-        },
-      ],
-      afterFiles: [],
-      fallback: [],
-    };
-  },
-};
+/*
+ * The custom domain used to rewrite "/" straight to the member app. It now
+ * serves the marketing site on every host, with the three-lane demo one click
+ * away at /demo, so there is nothing host-specific left to do here.
+ */
+const nextConfig: NextConfig = {};
 
 export default nextConfig;

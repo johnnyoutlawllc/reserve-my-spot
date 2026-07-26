@@ -10,6 +10,10 @@ if (!url || !key) {
 }
 
 export const supabase = createClient(url, key, {
-  auth: { persistSession: false },
+  // Sessions persist because the marketing site signs real people in with
+  // Google (see lib/auth.tsx). detectSessionInUrl finishes the PKCE hand-off
+  // when Google bounces the browser back with ?code=. The rms_* policies grant
+  // `anon, authenticated` alike, so the demo behaves the same either way.
+  auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true },
   realtime: { params: { eventsPerSecond: 10 } },
 });

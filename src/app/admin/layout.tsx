@@ -25,7 +25,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <main className="mx-auto flex min-h-dvh max-w-md flex-col items-center justify-center gap-4 px-6 text-center">
         <h1 className="text-lg font-semibold tracking-tight">Admin sign-in</h1>
         <p className="text-sm leading-relaxed text-muted">Pick an admin account to open the console.</p>
-        <Button variant="primary" onClick={() => router.push('/')}>
+        <Button variant="primary" onClick={() => router.push('/demo')}>
           Choose an account
         </Button>
       </main>

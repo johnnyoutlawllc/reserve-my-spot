@@ -22,7 +22,7 @@ export default function SupportLayout({ children }: { children: React.ReactNode 
         <p className="text-sm leading-relaxed text-muted">
           Pick a support rep or admin account to open the desk portal.
         </p>
-        <Button variant="primary" onClick={() => router.push('/')}>
+        <Button variant="primary" onClick={() => router.push('/demo')}>
           Choose an account
         </Button>
       </main>
