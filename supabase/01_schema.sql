@@ -1,4 +1,4 @@
--- Reserve My Spot — schema
+-- Reserve My Spot: schema
 --
 -- All tables are prefixed rms_ and live in `public`. They are in `public` rather
 -- than a dedicated Postgres schema because PostgREST only serves schemas listed
@@ -11,7 +11,7 @@ create extension if not exists "pgcrypto";
 create table if not exists public.rms_settings (
   id int primary key default 1 check (id = 1),
   spa_name text not null default 'Serenity Springs Spa',
-  spa_address text not null default '1200 Church St, Nashville, TN 37203',
+  spa_address text not null default '480 Marigold Lane, Suite 200',
   spa_lat double precision not null default 36.1553,
   spa_lng double precision not null default -86.7845,
   timezone text not null default 'America/Chicago',

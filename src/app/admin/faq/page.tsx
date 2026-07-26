@@ -61,7 +61,7 @@ export default function AdminFaqPage() {
 
       <SectionTitle
         title="FAQ management"
-        hint="Publishing is instant — the member app has no cache to bust"
+        hint="Publishing is instant; the member app has no cache to bust"
         action={
           <Button variant="primary" size="sm" onClick={() => setEditing('new')}>
             Add entry

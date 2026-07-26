@@ -11,7 +11,7 @@ import { LIVE_STATUSES } from '@/lib/types';
 import { sinceLabel } from '@/lib/wait';
 
 const QUICK_REPLIES = [
-  'You’re all set — see you soon!',
+  'You’re all set, see you soon!',
   'That room is open right now, come on in.',
   'Give us about 20 minutes and we’ll have a bed free.',
   'Yes, you can stack those back to back. I’ll note it on your spot.',

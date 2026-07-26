@@ -59,7 +59,7 @@ export function SiteHeader() {
   );
 }
 
-/** Sign in with Google, or — once signed in — the welcome chip and its menu. */
+/** Sign in with Google, or (once signed in) the welcome chip and its menu. */
 export function AuthButton({ size = 'md' }: { size?: 'md' | 'lg' }) {
   const { user, loading, displayName, avatarUrl, error, signInWithGoogle, signOut } = useAuth();
   const [busy, setBusy] = useState(false);
@@ -156,10 +156,10 @@ export function AuthButton({ size = 'md' }: { size?: 'md' | 'lg' }) {
           await signInWithGoogle();
           setBusy(false);
         }}
-        className={`inline-flex ${h} items-center gap-2 bg-text font-semibold text-ink transition-opacity hover:opacity-90 disabled:opacity-50`}
+        className={`inline-flex ${h} items-center gap-2.5 bg-white font-semibold text-[#1f1f1f] shadow-sm transition-colors hover:bg-white/90 disabled:opacity-50`}
       >
         <GoogleGlyph />
-        {busy ? 'Opening Google…' : 'Sign in'}
+        {busy ? 'Opening Google…' : size === 'lg' ? 'Sign in with Google' : 'Sign in'}
       </button>
       {error ? (
         <p className="absolute right-0 top-full mt-1 w-56 text-right text-[11px] leading-snug text-alert">

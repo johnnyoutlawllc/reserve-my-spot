@@ -1,9 +1,8 @@
 @import 'tailwindcss';
 
 /*
- * Reserve My Spot -- sibling of the Outlaw Apps design system (dark base, Inter),
- * but the accent shifts from the hub's orange to a wellness teal. Orange is kept
- * for the one thing that has to shout: a member about to lose their spot.
+ * Reserve My Spot: dark base, Inter, wellness teal accent. Orange is reserved
+ * for the one thing that has to shout, a member about to lose their spot.
  */
 @theme {
   --color-ink: #070908;
@@ -43,14 +42,6 @@ body {
 
 * {
   -webkit-tap-highlight-color: transparent;
-}
-
-input,
-select,
-textarea,
-button {
-  font: inherit;
-  color: inherit;
 }
 
 input[type='time']::-webkit-calendar-picker-indicator,

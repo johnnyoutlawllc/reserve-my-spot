@@ -97,7 +97,7 @@ export default function MySpotPage() {
                       </div>
                     ) : entry.status === 'notified' ? (
                       <div className="rounded-xl border border-accent/40 bg-accent-wash px-3.5 py-3">
-                        <p className="text-sm font-semibold text-accent">You’re up — head to the front desk.</p>
+                        <p className="text-sm font-semibold text-accent">You’re up. Head to the front desk.</p>
                         <p className="mt-1 text-[12px] leading-relaxed text-accent/80">
                           Your {service?.name} station is open and being held for you.
                         </p>
@@ -108,7 +108,7 @@ export default function MySpotPage() {
                           Session ends around
                         </p>
                         <p className="mt-1 text-3xl font-semibold tabular-nums tracking-tight text-accent">
-                          {startMs ? clockTime(startMs, settings?.timezone) : '—'}
+                          {startMs ? clockTime(startMs, settings?.timezone) : '-'}
                         </p>
                         <p className="mt-1 text-[12px] text-muted">Enjoy it. Nothing else to do.</p>
                       </div>
@@ -119,16 +119,16 @@ export default function MySpotPage() {
                             Estimated start
                           </p>
                           <p className="mt-1 text-3xl font-semibold tabular-nums tracking-tight">
-                            {startMs ? clockTime(startMs, settings?.timezone) : '—'}
+                            {startMs ? clockTime(startMs, settings?.timezone) : '-'}
                           </p>
                           <p className="mt-1 text-[12px] text-muted">
-                            {!slot ? '—' : slot.waitMinutes === 0 ? 'a station is free' : `${humanWait(slot.waitMinutes)} from now`}
+                            {!slot ? '-' : slot.waitMinutes === 0 ? 'a station is free' : `${humanWait(slot.waitMinutes)} from now`}
                           </p>
                         </div>
                         <div className="text-right">
                           <p className="text-[10px] font-semibold uppercase tracking-wider text-faint">In line</p>
                           <p className="mt-1 text-3xl font-semibold tabular-nums tracking-tight">
-                            #{slot?.position ?? '—'}
+                            #{slot?.position ?? '-'}
                           </p>
                           <p className="mt-1 text-[12px] text-muted">
                             {ahead === 0 ? 'you’re next' : `${ahead} ahead of you`}
@@ -224,7 +224,7 @@ export default function MySpotPage() {
       >
         <p className="text-[13px] leading-relaxed text-muted">
           You’ll lose your place in line and the front desk will be notified. You can request a new spot any
-          time — there’s no penalty.
+          time, and there’s no penalty.
         </p>
       </Modal>
     </div>
@@ -237,7 +237,7 @@ export default function MySpotPage() {
  * The location panel a member controls.
  *
  * Real GPS is the production path, but a laptop browser reports the office it is
- * sitting in and never moves — useless for showing a spa owner what the front desk
+ * sitting in and never moves, which is useless for showing a spa owner what the front desk
  * sees. So the demo simulator drives a synthetic approach along the same code path,
  * writing to the same row the front desk reads.
  */
@@ -435,7 +435,7 @@ function LocationCard({ hasActiveSpot }: { hasActiveSpot: boolean }) {
                   className="mt-2 w-full accent-[var(--color-accent)]"
                 />
                 <p className="mt-1.5 text-[11px] leading-relaxed text-faint">
-                  Drag to move yourself toward the spa. The front desk board updates instantly — open it in
+                  Drag to move yourself toward the spa. The front desk board updates instantly. Open it in
                   another window to watch.
                 </p>
               </div>
@@ -443,7 +443,7 @@ function LocationCard({ hasActiveSpot }: { hasActiveSpot: boolean }) {
           </>
         ) : (
           <p className="text-[12px] leading-relaxed text-faint">
-            With sharing off, the desk can still hold your spot — they just have no way to know if you’re on
+            With sharing off, the desk can still hold your spot; they just have no way to know if you’re on
             the way, so a late arrival is more likely to be released.
           </p>
         )}

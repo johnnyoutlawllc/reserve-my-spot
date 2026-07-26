@@ -20,7 +20,7 @@ export default function MemberLayout({ children }: { children: React.ReactNode }
       <main className="mx-auto flex min-h-dvh max-w-md flex-col items-center justify-center gap-4 px-6 text-center">
         <h1 className="text-lg font-semibold tracking-tight">Pick a member to continue</h1>
         <p className="text-sm leading-relaxed text-muted">
-          The demo has no passwords — choose which seeded member you want to be and the app opens as them.
+          The demo has no passwords. Choose which seeded member you want to be and the app opens as them.
         </p>
         <Button variant="primary" onClick={() => router.push('/demo')}>
           Choose a member

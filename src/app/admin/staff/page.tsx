@@ -42,10 +42,10 @@ export default function AdminStaffPage() {
 
       <Card className="p-4">
         <p className="text-[12px] leading-relaxed text-muted">
-          <span className="font-semibold text-text">Support</span> — sees incoming requests, the room board,
+          <span className="font-semibold text-text">Support</span> sees incoming requests, the room board,
           member locations, and member chat.
           <br />
-          <span className="font-semibold text-text">Admin</span> — everything above, plus memberships, the
+          <span className="font-semibold text-text">Admin</span> gets everything above, plus memberships, the
           service menu, store hours, the booking window, and the FAQ.
         </p>
       </Card>
@@ -80,7 +80,7 @@ function StaffRow({
 
   // Locking yourself out of the console is the one mistake worth preventing outright.
   const guard = lastActiveAdmin
-    ? 'This is the only active admin — promote someone else before changing it.'
+    ? 'This is the only active admin. Promote someone else before changing it.'
     : null;
 
   return (
@@ -189,8 +189,8 @@ function AddStaffModal({ open, onClose }: { open: boolean; onClose: () => void }
         <label className="block">
           <Label>Role</Label>
           <Select value={form.role} onChange={(e) => setForm({ ...form, role: e.target.value as StaffRole })}>
-            <option value="support">support — front desk portal</option>
-            <option value="admin">admin — front desk + console</option>
+            <option value="support">support (front desk portal)</option>
+            <option value="admin">admin (front desk + console)</option>
           </Select>
         </label>
         {error ? <Banner tone="alert">{error}</Banner> : null}

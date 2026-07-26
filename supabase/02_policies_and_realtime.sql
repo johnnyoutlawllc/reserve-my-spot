@@ -1,4 +1,4 @@
--- Reserve My Spot — RLS, triggers, realtime
+-- Reserve My Spot: RLS, triggers, realtime
 --
 -- SECURITY NOTE, READ BEFORE PRODUCTION USE
 -- This proof of concept has no end-user authentication (the landing page is a

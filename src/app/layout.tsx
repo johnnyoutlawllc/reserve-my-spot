@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'sw
 export const metadata: Metadata = {
   metadataBase: new URL('https://reservemy.spot'),
   title: {
-    default: 'Reserve My Spot — hold your spot at the spa before you leave home',
+    default: 'Reserve My Spot · Hold your spot at the spa before you leave home',
     template: '%s · Reserve My Spot',
   },
   description:

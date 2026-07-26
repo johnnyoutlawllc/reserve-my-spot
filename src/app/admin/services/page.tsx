@@ -190,7 +190,7 @@ function ServiceModal({
     setBusy(false);
     if (err) {
       setError(
-        `${err.message}. This service has waitlist history, so it can't be deleted — switch it to Hidden instead.`,
+        `${err.message}. This service has waitlist history, so it can't be deleted. Switch it to Hidden instead.`,
       );
     } else onClose();
   }

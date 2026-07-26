@@ -9,7 +9,7 @@ import { supabase } from './supabase';
  *
  * `session.tsx` answers "which seeded demo identity is this tab pretending to
  * be" and is what the member / front desk / admin surfaces run on. This answers
- * "who is the actual human looking at the marketing site" — a spa owner kicking
+ * "who is the actual human looking at the marketing site": a spa owner kicking
  * the tires, or a member who wants their profile remembered. Keeping them apart
  * means signing in with Google does not hijack the three-lane demo, and the
  * demo stays open to the public with no sign-in at all.

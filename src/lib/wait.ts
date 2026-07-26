@@ -271,7 +271,7 @@ export function membershipState(member: {
   return { ok: true, reason: null };
 }
 
-/** "45 min" / "4 hr" / "1 hr 30 min" — for durations described in prose. */
+/** "45 min" / "4 hr" / "1 hr 30 min", for durations described in prose. */
 export function humanSpan(minutes: number): string {
   if (minutes < 60) return `${minutes} min`;
   const h = Math.floor(minutes / 60);

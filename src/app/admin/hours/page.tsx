@@ -200,7 +200,7 @@ function BookingWindowForm({ settings }: { settings: Settings }) {
           checked={form.online_booking_enabled}
           onChange={(next) => setForm({ ...form, online_booking_enabled: next })}
           label="Accept requests through the app"
-          hint="Turn off for a busy holiday or a system issue — members see a walk-in message instead."
+          hint="Turn off for a busy holiday or a system issue. Members see a walk-in message instead."
         />
 
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -216,7 +216,7 @@ function BookingWindowForm({ settings }: { settings: Settings }) {
             <Label hint="minutes">Maximum advance</Label>
             <TextInput min={15} max={1440} {...num('max_advance_minutes')} />
             <p className="mt-1.5 text-[11px] leading-relaxed text-faint">
-              Furthest ahead a member may aim — {Math.round(form.max_advance_minutes / 60)} hr at this setting.
+              Furthest ahead a member may aim: {Math.round(form.max_advance_minutes / 60)} hr at this setting.
               Also how early the day&apos;s requests open.
             </p>
           </label>
@@ -257,7 +257,7 @@ function BookingWindowForm({ settings }: { settings: Settings }) {
           <Button variant="primary" disabled={!dirty || invalid || busy} onClick={save}>
             {busy ? 'Saving…' : 'Save window'}
           </Button>
-          {saved ? <span className="text-[12px] text-accent">Saved — live in the app.</span> : null}
+          {saved ? <span className="text-[12px] text-accent">Saved. Live in the app.</span> : null}
         </div>
       </Card>
     </section>

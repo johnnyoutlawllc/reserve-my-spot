@@ -131,7 +131,7 @@ export default function SupportBoardPage() {
           <section>
             <SectionTitle
               title="Incoming requests"
-              hint="Accept to put the member in line — they get the estimate immediately"
+              hint="Accept to put the member in line. They get the estimate immediately"
             />
             {requests.length === 0 ? (
               <Empty title="No pending requests" body="New requests appear here the moment a member taps Request my spot." />
@@ -177,7 +177,7 @@ export default function SupportBoardPage() {
                           {member?.full_name ?? 'Member'}
                         </p>
                         <p className="truncate text-[11px] text-faint">
-                          {service?.name} · {entry.status === 'notified' ? 'called up' : `#${slot?.position ?? '—'} in line`}
+                          {service?.name} · {entry.status === 'notified' ? 'called up' : `#${slot?.position ?? '-'} in line`}
                         </p>
                       </div>
                       <RiskBadge risk={risk} />
@@ -191,7 +191,7 @@ export default function SupportBoardPage() {
                             ? 'now'
                             : slot
                               ? clockTime(slot.startMs, settings?.timezone)
-                              : '—'}
+                              : '-'}
                         </p>
                       </div>
                       <div className="rounded-lg border border-line-soft bg-surface-2 px-2 py-1.5">
@@ -348,7 +348,7 @@ function RequestCard({ entry }: { entry: WaitlistEntry }) {
             rows={3}
             value={reason}
             onChange={(e) => setReason(e.target.value)}
-            placeholder="Bulb replacement on bed 2 — try again after 3pm."
+            placeholder="Bulb replacement on bed 2, try again after 3pm."
           />
         </label>
       </Modal>
@@ -480,7 +480,7 @@ function BoardRow({
         </p>
         <p className="truncate text-[11px] text-faint">
           {entry.status === 'in_service'
-            ? `in session · ends ${endsAt ? clockTime(endsAt, timezone) : '—'}`
+            ? `in session · ends ${endsAt ? clockTime(endsAt, timezone) : '-'}`
             : slot
               ? `turn at ${clockTime(slot.startMs, timezone)} · ${humanWait(slot.waitMinutes)}`
               : sinceLabel(entry.requested_at, now)}
@@ -567,7 +567,7 @@ function BoardRow({
           {risk.level === 'late' ? (
             <Banner tone="alert">
               {member?.full_name} is about {risk.eta} minutes out and their turn is in{' '}
-              {humanWait(slot?.waitMinutes ?? 0)} — roughly {risk.gap} minutes behind.
+              {humanWait(slot?.waitMinutes ?? 0)}, roughly {risk.gap} minutes behind.
             </Banner>
           ) : null}
           <p className="text-[13px] leading-relaxed text-muted">
@@ -616,7 +616,7 @@ function BoardRow({
             rows={3}
             value={note}
             onChange={(e) => setNote(e.target.value)}
-            placeholder="We put you on bed 3 — it runs a little warmer."
+            placeholder="We put you on bed 3. It runs a little warmer."
           />
         </label>
       </Modal>

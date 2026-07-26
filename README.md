@@ -4,7 +4,7 @@ A proof of concept for selling to local spas: premium members claim a spot from
 home instead of driving over and sitting in the lobby on a first-come, first-served
 basis.
 
-The pitch in one sentence — **the front desk sees a request the instant it lands,
+The pitch in one sentence: **the front desk sees a request the instant it lands,
 along with the member's live driving ETA, so a spot gets held for someone who is
 genuinely on the way and released when they aren't.**
 
@@ -48,7 +48,7 @@ npm run dev
 
 Apply the SQL in [`supabase/`](supabase/) in order (`01_schema`,
 `02_policies_and_realtime`, `03_seed`) against a Supabase project. `03_seed.sql` is
-safe to re-run — it resets the demo activity to a fixed opening tableau.
+safe to re-run, and it resets the demo activity to a fixed opening tableau.
 
 ### Demo location sharing
 
@@ -62,9 +62,9 @@ the front desk reads. Drag it with the support portal open in another window.
 Next.js 16 (App Router, Turbopack) · React 19 · Tailwind CSS v4 · TypeScript ·
 Supabase Postgres + Realtime · deployed on Vercel.
 
-Tables are prefixed `rms_` inside the shared **Outlaw Apps** Supabase project.
+Tables are prefixed `rms_` inside a shared Supabase project.
 They sit in `public` rather than a dedicated Postgres schema because PostgREST only
-serves schemas listed under the project's *Exposed schemas* setting — the prefix
+serves schemas listed under the project's *Exposed schemas* setting. The prefix
 gives the same namespacing without a project-wide change.
 
 ## Before this is sold to anyone
@@ -74,12 +74,12 @@ This is a demo build, and two things are deliberately unfinished:
 1. **There is no authentication.** The identity picker writes an id to
    localStorage; the anon key has full read/write on the `rms_*` tables. Anyone
    with the URL can act as any member or rep. Production needs Supabase Auth and
-   RLS policies keyed on `auth.uid()` — see the note at the top of
+   RLS policies keyed on `auth.uid()`. See the note at the top of
    [`supabase/02_policies_and_realtime.sql`](supabase/02_policies_and_realtime.sql).
 2. **Notifications are in-app only.** The desk bell and the member's Updates list
    read a `rms_notifications` table. A real member needs a push notification when
    they're called up, which means a service worker plus a push provider (or SMS).
 
-Driving ETAs are also straight-line distance with an assumed speed, not routed —
+Driving ETAs are also straight-line distance with an assumed speed, not routed:
 good enough to demo the idea, worth swapping for a real routing API if a spa cares
 about accuracy in traffic.

@@ -1,4 +1,4 @@
--- Reserve My Spot — demo seed
+-- Reserve My Spot: demo seed
 --
 -- Safe to re-run: the reference tables use ON CONFLICT DO NOTHING, and the
 -- activity section clears itself first so the demo always opens on the same
@@ -18,7 +18,7 @@ insert into public.rms_hours (day_of_week, is_closed, open_time, close_time) val
 on conflict (day_of_week) do nothing;
 
 insert into public.rms_staff (full_name, email, role) values
-  ('Johnny Outlaw',  'johnnyoutlawllc@gmail.com',    'admin'),
+  ('Elena Marsh',    'elena@serenitysprings.demo',  'admin'),
   ('Dana Whitfield', 'dana@serenitysprings.demo',   'admin'),
   ('Marcus Reyes',   'marcus@serenitysprings.demo', 'support'),
   ('Priya Nair',     'priya@serenitysprings.demo',  'support')
@@ -102,7 +102,7 @@ from (values
   ('Elena Rossi',   'Wave Massage',      'in_service', interval '9 minutes',  now() - interval '9 minutes',  now() - interval '6 minutes', null),
   ('Ben Okafor',    'Red Light Therapy', 'waiting',    interval '11 minutes', now() - interval '10 minutes', null::timestamptz, 'Back-to-back with the sauna if there is room'),
   ('Grace Halloway','Tanning Bed',       'waiting',    interval '6 minutes',  now() - interval '5 minutes',  null::timestamptz, null),
-  ('Derek Yoon',    'Infrared Sauna',    'requested',  interval '1 minute',   null::timestamptz,             null::timestamptz, 'First visit — do I need to bring anything?')
+  ('Derek Yoon',    'Infrared Sauna',    'requested',  interval '1 minute',   null::timestamptz,             null::timestamptz, 'First visit, do I need to bring anything?')
 ) as v(member_name, service_name, status, ago, queued, started, note)
 join m on m.full_name = v.member_name
 join s on s.name = v.service_name;
@@ -120,10 +120,10 @@ with t as (
 )
 insert into public.rms_chat_messages (thread_id, sender_role, sender_id, sender_name, body)
 select t.id, 'member', t.member_id, 'Ava Sinclair',
-  'Quick question — is it better to do cryotherapy before or after red light therapy? Trying to build a routine.'
+  'Quick question: is it better to do cryotherapy before or after red light therapy? Trying to build a routine.'
 from t;
 
 insert into public.rms_notifications (audience, member_id, kind, title, body, waitlist_id)
 select 'staff', w.member_id, 'request',
-       'Derek Yoon requested Infrared Sauna', 'First visit — do I need to bring anything?', w.id
+       'Derek Yoon requested Infrared Sauna', 'First visit, do I need to bring anything?', w.id
 from public.rms_waitlist w where w.status = 'requested';

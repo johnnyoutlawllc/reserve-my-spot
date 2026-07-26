@@ -149,7 +149,7 @@ export default function BookPage() {
       <section>
         <SectionTitle
           title="Choose a service"
-          hint={atLimit ? 'One active spot at a time — finish or cancel yours first.' : 'Live waits, updated automatically'}
+          hint={atLimit ? 'One active spot at a time. Finish or cancel yours first.' : 'Live waits, updated automatically'}
         />
         <ul className="space-y-2.5">
           {queues.map((q) => {

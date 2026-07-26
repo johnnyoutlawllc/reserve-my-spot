@@ -65,7 +65,7 @@ export async function acceptRequest(entry: WaitlistEntry, service: Service, wait
     title: `You're on the list for ${service.name}`,
     body:
       waitMinutes <= 0
-        ? 'A station is free — come on in whenever you get here.'
+        ? 'A station is free. Come on in whenever you get here.'
         : `Estimated start in ${humanWait(waitMinutes)}.`,
     waitlist_id: entry.id,
   });
@@ -86,7 +86,7 @@ export async function declineRequest(entry: WaitlistEntry, service: Service, rea
   });
 }
 
-/** Station is open — tell the member to come in. */
+/** Station is open, so tell the member to come in. */
 export async function callUp(entry: WaitlistEntry, service: Service) {
   await update(entry.id, { status: 'notified', estimated_start: new Date().toISOString() });
   await notifyMember({
@@ -120,7 +120,7 @@ export async function markNoShow(entry: WaitlistEntry, service: Service) {
 /**
  * Pushes a late member behind the next person in line instead of dropping them.
  *
- * This is the humane version of "you lost your spot" — the room keeps moving for
+ * This is the humane version of "you lost your spot": the room keeps moving for
  * whoever is already here, and the late member keeps their visit.
  */
 export async function bumpBehindNext(entry: WaitlistEntry, siblings: WaitlistEntry[], service: Service) {
@@ -139,7 +139,7 @@ export async function bumpBehindNext(entry: WaitlistEntry, siblings: WaitlistEnt
     member_id: entry.member_id,
     kind: 'bumped',
     title: `Your ${service.name} spot moved back one`,
-    body: 'We held your place — the app has your new estimate.',
+    body: 'We held your place. The app has your new estimate.',
     waitlist_id: entry.id,
   });
 }

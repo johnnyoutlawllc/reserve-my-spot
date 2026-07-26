@@ -3,7 +3,7 @@ import { AuthButton, Mark, SiteHeader } from '@/components/SiteHeader';
 import { ServiceIcon } from '@/components/ServiceIcon';
 
 export const metadata = {
-  title: 'Reserve My Spot — hold your spot at the spa before you leave home',
+  title: 'Reserve My Spot · Hold your spot at the spa before you leave home',
   description:
     'A waitlist app for premium spa memberships. Members claim a spot for Red Light Therapy, the Wave Massage bed, tanning and more, share their drive, and the front desk knows who is actually on the way.',
 };
@@ -47,7 +47,7 @@ const STEPS = [
 const FAQ = [
   {
     q: 'Is this just online booking?',
-    a: 'No. Booking hands out a fixed appointment slot and hopes the person shows. Reserve My Spot runs the line you already run — first come, first served — but lets members take their place in it from home, and shows the desk who is genuinely en route.',
+    a: 'No. Booking hands out a fixed appointment slot and hopes the person shows. Reserve My Spot runs the line you already run (first come, first served) but lets members take their place in it from home, and shows the desk who is genuinely en route.',
   },
   {
     q: 'How does the app know a member is late?',
@@ -55,7 +55,7 @@ const FAQ = [
   },
   {
     q: 'What if a member does not want to share location?',
-    a: 'Location is opt-in per member and can be switched off at any time. Without it they still get a spot, a position, and notifications — the desk just sees a self-reported arrival time instead of a live one.',
+    a: 'Location is opt-in per member and can be switched off at any time. Without it they still get a spot, a position, and notifications. The desk just sees a self-reported arrival time instead of a live one.',
   },
   {
     q: 'Where do the wait times come from?',
@@ -63,7 +63,7 @@ const FAQ = [
   },
   {
     q: 'Does the front desk need new hardware?',
-    a: 'No. The desk portal and the admin console run in a browser on whatever you already have, and members use the browser on their phone — nothing to install from an app store.',
+    a: 'No. The desk portal and the admin console run in a browser on whatever you already have, and members use the browser on their phone. There is nothing to install from an app store.',
   },
   {
     q: 'Can we try it before committing?',
@@ -113,7 +113,7 @@ function Hero() {
           </h1>
 
           <p className="mt-6 max-w-xl text-[16px] leading-relaxed text-muted">
-            Red Light Therapy, the Wave Massage bed, tanning — the popular stations always draw a line, and
+            Red Light Therapy, the Wave Massage bed, tanning: the popular stations always draw a line, and
             today the only way into it is to drive over and wait. Reserve My Spot puts that same line on your
             members&rsquo; phones, and puts their live drive time in front of your staff.
           </p>
@@ -132,7 +132,7 @@ function Hero() {
           </div>
 
           <p className="mt-4 text-[13px] text-faint">
-            The demo is open to everyone — no account needed. Sign in to keep a profile.
+            The demo is open to everyone, no account needed. Sign in to keep a profile.
           </p>
         </div>
 
@@ -319,8 +319,8 @@ function Features() {
           <p className="mt-3 max-w-xl text-[14.5px] leading-relaxed text-muted">
             A phone call tells you someone <em>says</em> they will be there at four. Opt-in location sharing
             tells you their driving ETA right now, checked against the minute their station actually frees up.
-            Once they cross the grace period you set, the desk has one decision to make — bump them back or
-            release the spot — instead of an awkward wait and an idle station.
+            Once they cross the grace period you set, the desk has one decision to make: bump them back, or release the
+            spot. No awkward wait, no idle station.
           </p>
           <ul className="mt-6 grid gap-2 sm:grid-cols-2">
             {[
@@ -349,7 +349,7 @@ function Features() {
         />
         <FeatureCard
           title="Chat with the front desk"
-          body="A direct thread between the member and whoever is working the desk. Running late, swapping a service, asking whether the sauna is free — answered without a phone call."
+          body="A direct thread between the member and whoever is working the desk. Running late, swapping a service, asking whether the sauna is free: answered without a phone call."
           icon={
             <>
               <path d="M20 15a3 3 0 0 1-3 3H8l-4 3V6a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3Z" />
@@ -370,7 +370,7 @@ function Features() {
         />
         <FeatureCard
           title="Honest wait times"
-          body="Estimates come from your own session lengths and station counts, simulated forward through the current line — not a flat guess that ages badly by mid-afternoon."
+          body="Estimates come from your own session lengths and station counts, simulated forward through the current line, not a flat guess that ages badly by mid-afternoon."
           icon={
             <>
               <circle cx="12" cy="12" r="8.5" />
@@ -380,7 +380,7 @@ function Features() {
         />
         <FeatureCard
           title="A room board that keeps up"
-          body="Every station, who is in it, and who is next — updating live on every screen at once. Call up, start, complete, bump back, or release from the same board."
+          body="Every station, who is in it, and who is next, updating live on every screen at once. Call up, start, complete, bump back, or release from the same board."
           icon={
             <>
               <rect x="3" y="4" width="18" height="16" rx="2.5" />
@@ -626,12 +626,12 @@ function Pilot() {
           Want this running at your spa?
         </h2>
         <p className="mx-auto mt-3 max-w-xl text-[15px] leading-relaxed text-muted">
-          We take on a small number of locations at a time and configure it with you — your services, your
+          We take on a small number of locations at a time and configure it with you: your services, your
           station counts, your hours, your rules for who gets bumped. Tell us how your line works today.
         </p>
         <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
           <a
-            href="mailto:johnnyoutlawllc@gmail.com?subject=Reserve%20My%20Spot"
+            href="mailto:hello@69.studio?subject=Reserve%20My%20Spot"
             className="inline-flex h-12 items-center rounded-2xl bg-accent px-6 text-[15px] font-semibold text-ink transition-colors hover:bg-accent/90"
           >
             Start a conversation
@@ -671,7 +671,7 @@ function Footer() {
           <Link href="/demo" className="transition-colors hover:text-text">
             Demo
           </Link>
-          <a href="mailto:johnnyoutlawllc@gmail.com" className="transition-colors hover:text-text">
+          <a href="mailto:hello@69.studio" className="transition-colors hover:text-text">
             Contact
           </a>
         </nav>
@@ -679,15 +679,15 @@ function Footer() {
       <div className="mx-auto max-w-6xl px-5 pb-10 text-[12px] leading-relaxed text-faint">
         <p>
           Members, staff and sessions shown on this page are illustrative. The demo runs on a shared live
-          database seeded with fictional accounts — anything you do there is visible to anyone else with the
+          database seeded with fictional accounts, so anything you do there is visible to anyone else with the
           link.
         </p>
         <p className="mt-2">
           <a
-            href="https://outlawapps.online"
+            href="https://69.studio"
             className="underline decoration-line underline-offset-2 transition-colors hover:text-accent"
           >
-            An Outlaw Apps project
+            A 69.studio project
           </a>
         </p>
       </div>

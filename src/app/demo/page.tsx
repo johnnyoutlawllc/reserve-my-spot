@@ -112,7 +112,7 @@ export default function LandingPage() {
         <p className="mt-4 text-[15px] leading-relaxed text-muted">
           This is the real application, running against a live database seeded with fictional members. Premium
           spa members claim a spot before they leave the house; the front desk sees the request the instant it
-          lands, along with the member’s live driving ETA — so a spot is held for someone genuinely on the way,
+          lands, along with the member’s live driving ETA, so a spot is held for someone genuinely on the way,
           and released when they aren’t.
         </p>
         <p className="mt-3 text-sm leading-relaxed text-faint">
@@ -124,7 +124,7 @@ export default function LandingPage() {
         {[
           { k: 'Services live', v: services.filter((s) => s.is_active).length },
           { k: 'Members seeded', v: members.length },
-          { k: 'Spa', v: settings?.spa_name ?? '—' },
+          { k: 'Spa', v: settings?.spa_name ?? '-' },
         ].map((s) => (
           <Card key={s.k} className="px-4 py-3">
             <p className="text-[10px] font-semibold uppercase tracking-wider text-faint">{s.k}</p>
@@ -180,7 +180,7 @@ export default function LandingPage() {
           <Card className="p-5">
             <div className="flex items-center justify-between gap-3">
               <div>
-                <h3 className="text-sm font-semibold tracking-tight">Sign in as — {activeLane.title}</h3>
+                <h3 className="text-sm font-semibold tracking-tight">Sign in: {activeLane.title}</h3>
                 <p className="mt-1 text-xs text-faint">
                   No passwords in the demo. Pick an identity and you’re in.
                 </p>
@@ -231,11 +231,11 @@ export default function LandingPage() {
       <footer className="mt-14 border-t border-line-soft pt-6 text-xs leading-relaxed text-faint">
         <p>
           Demo build. Seeded members and staff are fictional, and front desk actions write to a live shared
-          database — anything you do here is visible to anyone else with the link.
+          database, so anything you do here is visible to anyone else with the link.
         </p>
         <p className="mt-2">
-          <a href="https://outlawapps.online" className="text-muted underline decoration-line hover:text-accent">
-            An Outlaw Apps project
+          <a href="https://69.studio" className="text-muted underline decoration-line hover:text-accent">
+            A 69.studio project
           </a>
         </p>
       </footer>

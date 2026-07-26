@@ -32,7 +32,7 @@ export default function FaqPage() {
   return (
     <div className="space-y-5">
       <div>
-        <SectionTitle title="Questions & answers" hint="Managed by the spa — updates show up here instantly" />
+        <SectionTitle title="Questions & answers" hint="Managed by the spa, updates show up here instantly" />
         <TextInput
           value={query}
           onChange={(e) => setQuery(e.target.value)}
