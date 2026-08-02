@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { supabase } from './supabase';
+import { SCHEMA, supabase } from './supabase';
 
 type Order = { column: string; ascending?: boolean };
 
@@ -48,7 +48,7 @@ export function useLiveTable<T>(table: string, opts: { order?: Order; deps?: unk
     void load();
     const channel = supabase
       .channel(`live:${table}:${channelSuffix()}`)
-      .on('postgres_changes', { event: '*', schema: 'public', table }, () => void load())
+      .on('postgres_changes', { event: '*', schema: SCHEMA, table }, () => void load())
       .subscribe();
     return () => {
       mounted.current = false;

@@ -1,14 +1,18 @@
 -- Reserve My Spot: schema
 --
--- All tables are prefixed rms_ and live in `public`. They are in `public` rather
--- than a dedicated Postgres schema because PostgREST only serves schemas listed
--- under Exposed schemas in the project's API settings; the prefix gives the same
--- namespacing without needing that project-wide setting changed.
+-- All tables live in the `spot` schema, never in `public`. PostgREST only
+-- serves schemas listed under Exposed schemas in the project's API settings, so
+-- `spot` has to be in that list (it is) and every client sets
+-- `db: { schema: 'spot' }`. The rms_ prefix is kept only because it is already
+-- baked into the application code.
 
 create extension if not exists "pgcrypto";
 
+create schema if not exists spot;
+grant usage on schema spot to anon, authenticated, service_role;
+
 -- Single-row config for the spa.
-create table if not exists public.rms_settings (
+create table if not exists spot.rms_settings (
   id int primary key default 1 check (id = 1),
   spa_name text not null default 'Serenity Springs Spa',
   spa_address text not null default '480 Marigold Lane, Suite 200',
@@ -28,14 +32,14 @@ create table if not exists public.rms_settings (
   updated_at timestamptz not null default now()
 );
 
-create table if not exists public.rms_hours (
+create table if not exists spot.rms_hours (
   day_of_week int primary key check (day_of_week between 0 and 6), -- 0 = Sunday
   is_closed boolean not null default false,
   open_time time not null default '09:00',
   close_time time not null default '19:00'
 );
 
-create table if not exists public.rms_staff (
+create table if not exists spot.rms_staff (
   id uuid primary key default gen_random_uuid(),
   full_name text not null,
   email text not null unique,
@@ -44,7 +48,7 @@ create table if not exists public.rms_staff (
   created_at timestamptz not null default now()
 );
 
-create table if not exists public.rms_members (
+create table if not exists spot.rms_members (
   id uuid primary key default gen_random_uuid(),
   full_name text not null,
   email text not null unique,
@@ -58,7 +62,7 @@ create table if not exists public.rms_members (
 );
 
 -- duration_minutes x capacity is what every wait estimate is built from.
-create table if not exists public.rms_services (
+create table if not exists spot.rms_services (
   id uuid primary key default gen_random_uuid(),
   name text not null,
   description text,
@@ -72,10 +76,10 @@ create table if not exists public.rms_services (
 
 -- One row per request. `requested` means it is sitting at the desk unaccepted;
 -- `waiting` onward means it holds a place in the service's queue.
-create table if not exists public.rms_waitlist (
+create table if not exists spot.rms_waitlist (
   id uuid primary key default gen_random_uuid(),
-  member_id uuid not null references public.rms_members(id) on delete cascade,
-  service_id uuid not null references public.rms_services(id) on delete restrict,
+  member_id uuid not null references spot.rms_members(id) on delete cascade,
+  service_id uuid not null references spot.rms_services(id) on delete restrict,
   status text not null default 'requested'
     check (status in ('requested','waiting','notified','in_service','completed','no_show','cancelled','forfeited','declined')),
   requested_at timestamptz not null default now(),
@@ -93,8 +97,8 @@ create table if not exists public.rms_waitlist (
 );
 
 -- Latest known position only; no history is kept.
-create table if not exists public.rms_member_locations (
-  member_id uuid primary key references public.rms_members(id) on delete cascade,
+create table if not exists spot.rms_member_locations (
+  member_id uuid primary key references spot.rms_members(id) on delete cascade,
   lat double precision not null,
   lng double precision not null,
   accuracy_m double precision,
@@ -104,7 +108,7 @@ create table if not exists public.rms_member_locations (
   updated_at timestamptz not null default now()
 );
 
-create table if not exists public.rms_faqs (
+create table if not exists spot.rms_faqs (
   id uuid primary key default gen_random_uuid(),
   question text not null,
   answer text not null,
@@ -114,9 +118,9 @@ create table if not exists public.rms_faqs (
   updated_at timestamptz not null default now()
 );
 
-create table if not exists public.rms_chat_threads (
+create table if not exists spot.rms_chat_threads (
   id uuid primary key default gen_random_uuid(),
-  member_id uuid not null references public.rms_members(id) on delete cascade,
+  member_id uuid not null references spot.rms_members(id) on delete cascade,
   subject text not null default 'Question for the front desk',
   status text not null default 'open' check (status in ('open','closed')),
   last_message_at timestamptz not null default now(),
@@ -125,9 +129,9 @@ create table if not exists public.rms_chat_threads (
   created_at timestamptz not null default now()
 );
 
-create table if not exists public.rms_chat_messages (
+create table if not exists spot.rms_chat_messages (
   id uuid primary key default gen_random_uuid(),
-  thread_id uuid not null references public.rms_chat_threads(id) on delete cascade,
+  thread_id uuid not null references spot.rms_chat_threads(id) on delete cascade,
   sender_role text not null check (sender_role in ('member','staff','system')),
   sender_id uuid,
   sender_name text not null,
@@ -135,23 +139,23 @@ create table if not exists public.rms_chat_messages (
   created_at timestamptz not null default now()
 );
 
-create table if not exists public.rms_notifications (
+create table if not exists spot.rms_notifications (
   id uuid primary key default gen_random_uuid(),
   audience text not null default 'staff' check (audience in ('staff','member')),
-  member_id uuid references public.rms_members(id) on delete cascade,
+  member_id uuid references spot.rms_members(id) on delete cascade,
   kind text not null,
   title text not null,
   body text,
-  waitlist_id uuid references public.rms_waitlist(id) on delete cascade,
-  thread_id uuid references public.rms_chat_threads(id) on delete cascade,
+  waitlist_id uuid references spot.rms_waitlist(id) on delete cascade,
+  thread_id uuid references spot.rms_chat_threads(id) on delete cascade,
   is_read boolean not null default false,
   created_at timestamptz not null default now()
 );
 
-create index if not exists rms_waitlist_status_idx on public.rms_waitlist (status, requested_at);
-create index if not exists rms_waitlist_service_idx on public.rms_waitlist (service_id, status);
-create index if not exists rms_waitlist_member_idx on public.rms_waitlist (member_id, status);
-create index if not exists rms_chat_messages_thread_idx on public.rms_chat_messages (thread_id, created_at);
-create index if not exists rms_chat_threads_member_idx on public.rms_chat_threads (member_id, last_message_at desc);
-create index if not exists rms_notifications_unread_idx on public.rms_notifications (audience, is_read, created_at desc);
-create index if not exists rms_faqs_pub_idx on public.rms_faqs (is_published, category, sort_order);
+create index if not exists rms_waitlist_status_idx on spot.rms_waitlist (status, requested_at);
+create index if not exists rms_waitlist_service_idx on spot.rms_waitlist (service_id, status);
+create index if not exists rms_waitlist_member_idx on spot.rms_waitlist (member_id, status);
+create index if not exists rms_chat_messages_thread_idx on spot.rms_chat_messages (thread_id, created_at);
+create index if not exists rms_chat_threads_member_idx on spot.rms_chat_threads (member_id, last_message_at desc);
+create index if not exists rms_notifications_unread_idx on spot.rms_notifications (audience, is_read, created_at desc);
+create index if not exists rms_faqs_pub_idx on spot.rms_faqs (is_published, category, sort_order);

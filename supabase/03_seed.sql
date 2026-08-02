@@ -5,9 +5,9 @@
 -- tableau (one member in session, two in line with one running late, one
 -- request sitting at the desk, one unread question).
 
-insert into public.rms_settings (id) values (1) on conflict (id) do nothing;
+insert into spot.rms_settings (id) values (1) on conflict (id) do nothing;
 
-insert into public.rms_hours (day_of_week, is_closed, open_time, close_time) values
+insert into spot.rms_hours (day_of_week, is_closed, open_time, close_time) values
   (0, false, '10:00', '16:00'),
   (1, false, '08:00', '20:00'),
   (2, false, '08:00', '20:00'),
@@ -17,14 +17,14 @@ insert into public.rms_hours (day_of_week, is_closed, open_time, close_time) val
   (6, false, '09:00', '18:00')
 on conflict (day_of_week) do nothing;
 
-insert into public.rms_staff (full_name, email, role) values
+insert into spot.rms_staff (full_name, email, role) values
   ('Elena Marsh',    'elena@serenitysprings.demo',  'admin'),
   ('Dana Whitfield', 'dana@serenitysprings.demo',   'admin'),
   ('Marcus Reyes',   'marcus@serenitysprings.demo', 'support'),
   ('Priya Nair',     'priya@serenitysprings.demo',  'support')
 on conflict (email) do nothing;
 
-insert into public.rms_services (name, description, duration_minutes, capacity, icon, sort_order) values
+insert into spot.rms_services (name, description, duration_minutes, capacity, icon, sort_order) values
   ('Red Light Therapy',      'Full-body LED panel session for skin, recovery, and circulation.', 15, 2, 'redlight', 10),
   ('Wave Massage',           'Dry hydromassage bed. Pressure and zones set to your saved profile.', 20, 3, 'wave', 20),
   ('Tanning Bed',            'Level 3 stand-up bed with cooling and Bluetooth audio.', 12, 4, 'tanning', 30),
@@ -35,7 +35,7 @@ insert into public.rms_services (name, description, duration_minutes, capacity, 
   ('Hydrafacial Express',    '15-minute cleanse, extract, and hydrate facial.', 15, 1, 'facial', 80)
 on conflict do nothing;
 
-insert into public.rms_members (full_name, email, phone, tier, is_active, membership_start, membership_end, location_opt_in) values
+insert into spot.rms_members (full_name, email, phone, tier, is_active, membership_start, membership_end, location_opt_in) values
   ('Ava Sinclair',   'ava@demo.member',    '(615) 555-0142', 'elite',   true,  '2026-01-15', '2027-01-14', true),
   ('Ben Okafor',     'ben@demo.member',    '(615) 555-0198', 'premium', true,  '2026-03-01', '2027-02-28', true),
   ('Carla Mendes',   'carla@demo.member',  '(615) 555-0233', 'premium', true,  '2025-11-10', '2026-11-09', false),
@@ -46,7 +46,7 @@ insert into public.rms_members (full_name, email, phone, tier, is_active, member
   ('Hector Alvarez', 'hector@demo.member', '(615) 555-0421', 'premium', true,  '2026-06-12', '2027-06-11', false)
 on conflict (email) do nothing;
 
-insert into public.rms_faqs (question, answer, category, sort_order) values
+insert into spot.rms_faqs (question, answer, category, sort_order) values
   ('How does the waitlist actually work?',
    'Pick a service in the app and tap Request My Spot. The front desk gets your request instantly and adds you to that service''s queue. You''ll see your position and a live estimated start time that updates as people ahead of you finish.',
    'Waitlist', 10),
@@ -87,15 +87,15 @@ on conflict do nothing;
 
 /* ---------------------------------------------------------------- activity */
 
-delete from public.rms_notifications;
-delete from public.rms_chat_messages;
-delete from public.rms_chat_threads;
-delete from public.rms_member_locations;
-delete from public.rms_waitlist;
+delete from spot.rms_notifications;
+delete from spot.rms_chat_messages;
+delete from spot.rms_chat_threads;
+delete from spot.rms_member_locations;
+delete from spot.rms_waitlist;
 
-with m as (select id, full_name from public.rms_members),
-     s as (select id, name from public.rms_services)
-insert into public.rms_waitlist
+with m as (select id, full_name from spot.rms_members),
+     s as (select id, name from spot.rms_services)
+insert into spot.rms_waitlist
   (member_id, service_id, status, requested_at, queued_at, started_at, member_note, created_by)
 select m.id, s.id, v.status, now() - v.ago, v.queued, v.started, v.note, 'member'
 from (values
@@ -108,22 +108,22 @@ join m on m.full_name = v.member_name
 join s on s.name = v.service_name;
 
 -- Ben is close and on pace; Grace is far enough out to trip the late flag.
-insert into public.rms_member_locations (member_id, lat, lng, accuracy_m, distance_meters, eta_minutes, is_simulated)
-select id, 36.1690, -86.7720, 25, 1900, 7, true from public.rms_members where full_name = 'Ben Okafor';
-insert into public.rms_member_locations (member_id, lat, lng, accuracy_m, distance_meters, eta_minutes, is_simulated)
-select id, 36.2400, -86.6900, 30, 12800, 23, true from public.rms_members where full_name = 'Grace Halloway';
+insert into spot.rms_member_locations (member_id, lat, lng, accuracy_m, distance_meters, eta_minutes, is_simulated)
+select id, 36.1690, -86.7720, 25, 1900, 7, true from spot.rms_members where full_name = 'Ben Okafor';
+insert into spot.rms_member_locations (member_id, lat, lng, accuracy_m, distance_meters, eta_minutes, is_simulated)
+select id, 36.2400, -86.6900, 30, 12800, 23, true from spot.rms_members where full_name = 'Grace Halloway';
 
 with t as (
-  insert into public.rms_chat_threads (member_id, subject)
-  select id, 'Cryo before or after red light?' from public.rms_members where full_name = 'Ava Sinclair'
+  insert into spot.rms_chat_threads (member_id, subject)
+  select id, 'Cryo before or after red light?' from spot.rms_members where full_name = 'Ava Sinclair'
   returning id, member_id
 )
-insert into public.rms_chat_messages (thread_id, sender_role, sender_id, sender_name, body)
+insert into spot.rms_chat_messages (thread_id, sender_role, sender_id, sender_name, body)
 select t.id, 'member', t.member_id, 'Ava Sinclair',
   'Quick question: is it better to do cryotherapy before or after red light therapy? Trying to build a routine.'
 from t;
 
-insert into public.rms_notifications (audience, member_id, kind, title, body, waitlist_id)
+insert into spot.rms_notifications (audience, member_id, kind, title, body, waitlist_id)
 select 'staff', w.member_id, 'request',
        'Derek Yoon requested Infrared Sauna', 'First visit, do I need to bring anything?', w.id
-from public.rms_waitlist w where w.status = 'requested';
+from spot.rms_waitlist w where w.status = 'requested';

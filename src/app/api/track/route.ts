@@ -32,6 +32,7 @@ export async function POST(req: NextRequest) {
     const ip = req.headers.get('x-forwarded-for')?.split(',')[0].trim() ?? req.headers.get('x-real-ip') ?? 'unknown';
     const geo = await getGeo(ip);
     const sb = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, {
+      db: { schema: 'spot' },
       auth: { persistSession: false },
     });
     const { error: insertErr } = await sb.from('rms_page_views').insert({

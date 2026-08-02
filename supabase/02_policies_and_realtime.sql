@@ -18,38 +18,38 @@ begin
     'rms_member_locations','rms_faqs','rms_chat_threads','rms_chat_messages','rms_notifications'
   ]
   loop
-    execute format('alter table public.%I enable row level security', t);
-    execute format('drop policy if exists rms_demo_all on public.%I', t);
+    execute format('alter table spot.%I enable row level security', t);
+    execute format('drop policy if exists rms_demo_all on spot.%I', t);
     execute format(
-      'create policy rms_demo_all on public.%I for all to anon, authenticated using (true) with check (true)', t);
+      'create policy rms_demo_all on spot.%I for all to anon, authenticated using (true) with check (true)', t);
   end loop;
 end $$;
 
-create or replace function public.rms_touch_updated_at()
+create or replace function spot.rms_touch_updated_at()
 returns trigger language plpgsql as $$
 begin
   new.updated_at = now();
   return new;
 end $$;
 
-drop trigger if exists rms_waitlist_touch on public.rms_waitlist;
-create trigger rms_waitlist_touch before update on public.rms_waitlist
-  for each row execute function public.rms_touch_updated_at();
+drop trigger if exists rms_waitlist_touch on spot.rms_waitlist;
+create trigger rms_waitlist_touch before update on spot.rms_waitlist
+  for each row execute function spot.rms_touch_updated_at();
 
-drop trigger if exists rms_settings_touch on public.rms_settings;
-create trigger rms_settings_touch before update on public.rms_settings
-  for each row execute function public.rms_touch_updated_at();
+drop trigger if exists rms_settings_touch on spot.rms_settings;
+create trigger rms_settings_touch before update on spot.rms_settings
+  for each row execute function spot.rms_touch_updated_at();
 
-drop trigger if exists rms_faqs_touch on public.rms_faqs;
-create trigger rms_faqs_touch before update on public.rms_faqs
-  for each row execute function public.rms_touch_updated_at();
+drop trigger if exists rms_faqs_touch on spot.rms_faqs;
+create trigger rms_faqs_touch before update on spot.rms_faqs
+  for each row execute function spot.rms_touch_updated_at();
 
 -- A new message bumps its thread and marks the other side unread, so neither
 -- portal has to maintain the counter itself.
-create or replace function public.rms_on_chat_message()
+create or replace function spot.rms_on_chat_message()
 returns trigger language plpgsql as $$
 begin
-  update public.rms_chat_threads
+  update spot.rms_chat_threads
      set last_message_at = new.created_at,
          unread_staff  = case when new.sender_role = 'member' then unread_staff + 1 else 0 end,
          unread_member = case when new.sender_role = 'staff'  then unread_member + 1 else 0 end,
@@ -58,13 +58,13 @@ begin
   return new;
 end $$;
 
-drop trigger if exists rms_chat_message_fanout on public.rms_chat_messages;
-create trigger rms_chat_message_fanout after insert on public.rms_chat_messages
-  for each row execute function public.rms_on_chat_message();
+drop trigger if exists rms_chat_message_fanout on spot.rms_chat_messages;
+create trigger rms_chat_message_fanout after insert on spot.rms_chat_messages
+  for each row execute function spot.rms_on_chat_message();
 
-alter table public.rms_waitlist replica identity full;
-alter table public.rms_member_locations replica identity full;
-alter table public.rms_chat_threads replica identity full;
+alter table spot.rms_waitlist replica identity full;
+alter table spot.rms_member_locations replica identity full;
+alter table spot.rms_chat_threads replica identity full;
 
 do $$
 declare t text;
@@ -76,9 +76,9 @@ begin
   loop
     if not exists (
       select 1 from pg_publication_tables
-      where pubname = 'supabase_realtime' and schemaname = 'public' and tablename = t
+      where pubname = 'supabase_realtime' and schemaname = 'spot' and tablename = t
     ) then
-      execute format('alter publication supabase_realtime add table public.%I', t);
+      execute format('alter publication supabase_realtime add table spot.%I', t);
     end if;
   end loop;
 end $$;

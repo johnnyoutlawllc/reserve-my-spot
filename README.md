@@ -62,10 +62,12 @@ the front desk reads. Drag it with the support portal open in another window.
 Next.js 16 (App Router, Turbopack) · React 19 · Tailwind CSS v4 · TypeScript ·
 Supabase Postgres + Realtime · deployed on Vercel.
 
-Tables are prefixed `rms_` inside a shared Supabase project.
-They sit in `public` rather than a dedicated Postgres schema because PostgREST only
-serves schemas listed under the project's *Exposed schemas* setting. The prefix
-gives the same namespacing without a project-wide change.
+Tables live in the `spot` schema of a shared Supabase project, never in `public`.
+PostgREST only serves schemas listed under the project's *Exposed schemas*
+setting, so `spot` is on that list and every Supabase client sets
+`db: { schema: 'spot' }` (`src/lib/supabase.ts`); Realtime names the schema
+itself in `src/lib/db.ts`. The `rms_` prefix on the table names is a leftover
+from when they were in `public` and is kept only to avoid churn.
 
 ## Before this is sold to anyone
 
