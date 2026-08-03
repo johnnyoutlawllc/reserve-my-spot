@@ -35,7 +35,14 @@ export default function SplitDemoPage() {
     const sync = () => setHorizontal(mq.matches);
     sync();
     mq.addEventListener('change', sync);
-    return () => mq.removeEventListener('change', sync);
+    // resize as well as the query: the change event does not always land when the
+    // viewport is driven from outside the page, and a stale orientation leaves the
+    // bar dragging along the wrong axis.
+    window.addEventListener('resize', sync);
+    return () => {
+      mq.removeEventListener('change', sync);
+      window.removeEventListener('resize', sync);
+    };
   }, []);
 
   const both = visible.member && visible.desk;
@@ -125,6 +132,7 @@ export default function SplitDemoPage() {
         {visible.member ? (
           <Pane
             title="Member app"
+            label="Member view"
             src="/m"
             grow={!both}
             basis={`${split}%`}
@@ -143,28 +151,39 @@ export default function SplitDemoPage() {
             tabIndex={0}
             onPointerDown={startDrag}
             onKeyDown={nudge}
-            className={`group relative shrink-0 touch-none bg-line-soft transition-colors hover:bg-accent/40 focus-visible:bg-accent focus-visible:outline-none ${
-              dragging ? 'bg-accent' : ''
-            } ${horizontal ? 'w-1.5 cursor-col-resize' : 'h-1.5 cursor-row-resize'}`}
+            className={`group relative flex shrink-0 touch-none items-center justify-center transition-colors focus-visible:outline-none ${
+              dragging ? 'bg-accent' : 'bg-surface-2 hover:bg-accent/25 focus-visible:bg-accent/40'
+            } ${
+              horizontal
+                ? 'w-2.5 cursor-col-resize border-x border-line'
+                : 'h-4 cursor-row-resize border-y border-line'
+            }`}
           >
-            {/* A wider invisible target than the 6px the eye sees. */}
+            {/* A wider invisible target than the bar the eye sees. */}
             <span
               aria-hidden="true"
-              className={`absolute ${
-                horizontal ? '-inset-x-2 inset-y-0' : '-inset-y-2 inset-x-0'
-              }`}
+              className={`absolute ${horizontal ? '-inset-x-2 inset-y-0' : '-inset-y-2 inset-x-0'}`}
             />
+            {/* Always-on grip. A hover-only affordance is invisible on a phone,
+                which is exactly where the bar is hardest to spot. */}
             <span
               aria-hidden="true"
-              className={`pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-faint/60 group-hover:bg-accent ${
-                horizontal ? 'h-8 w-0.5' : 'h-0.5 w-8'
-              }`}
+              className={`pointer-events-none rounded-full transition-colors ${
+                dragging ? 'bg-ink' : 'bg-faint group-hover:bg-accent'
+              } ${horizontal ? 'h-10 w-0.5' : 'h-1 w-14'}`}
             />
           </div>
         ) : null}
 
         {visible.desk ? (
-          <Pane title="Front desk portal" src="/support" grow basis="auto" frozen={dragging} />
+          <Pane
+            title="Front desk portal"
+            label="Front desk view"
+            src="/support"
+            grow
+            basis="auto"
+            frozen={dragging}
+          />
         ) : null}
       </div>
     </div>
@@ -173,12 +192,14 @@ export default function SplitDemoPage() {
 
 function Pane({
   title,
+  label,
   src,
   grow,
   basis,
   frozen,
 }: {
   title: string;
+  label: string;
   src: string;
   grow: boolean;
   basis: string;
@@ -186,13 +207,21 @@ function Pane({
 }) {
   return (
     <div
-      className="min-h-0 min-w-0 overflow-hidden"
+      className="flex min-h-0 min-w-0 flex-col overflow-hidden"
       style={{ flex: grow ? '1 1 0%' : `0 0 ${basis}` }}
     >
+      {/* The chip rides its own thin strip rather than floating over the frame.
+          Both apps fill their header corners AND their middle once a pane gets
+          narrow, so an overlay lands on top of something at some width. */}
+      <div className="flex h-7 shrink-0 items-center justify-center border-b border-line-soft bg-ink">
+        <span className="rounded-full border border-line bg-shell px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted shadow-sm shadow-ink">
+          {label}
+        </span>
+      </div>
       <iframe
         src={src}
         title={title}
-        className={`size-full border-0 ${frozen ? 'pointer-events-none' : ''}`}
+        className={`w-full min-h-0 grow border-0 ${frozen ? 'pointer-events-none' : ''}`}
       />
     </div>
   );
