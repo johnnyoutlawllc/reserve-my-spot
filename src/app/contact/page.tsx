@@ -13,12 +13,12 @@ const DIRECT = [
   {
     label: 'Sales',
     address: 'sales@reservemy.spot',
-    blurb: 'Pricing, pilots, and what setup looks like at your location.',
+    blurb: 'Pricing and pilots, and what setup would look like at your place.',
   },
   {
     label: 'Support',
     address: 'support@reservemy.spot',
-    blurb: 'Already running it. Questions from your front desk or your admin.',
+    blurb: 'For spas already running it. Your front desk and your admin both land here.',
   },
 ];
 
@@ -37,9 +37,9 @@ export default function ContactPage() {
             Tell us how your line works today.
           </h1>
           <p className="mt-5 text-[16px] leading-relaxed text-muted">
-            The more we know about your services, your station counts and your busiest hour, the more
-            specific we can be. There is no obligation and no call required: write as much or as little as
-            you like and we will answer in kind.
+            The more you tell us about the services you run and how many stations each one has, the more
+            specific we can be when we write back. Nobody is going to phone you unless you ask for a call,
+            and there is nothing to sign here.
           </p>
         </div>
 
@@ -75,7 +75,7 @@ export default function ContactPage() {
               </div>
               <p className="mt-2.5 text-[13px] leading-relaxed text-muted">
                 The demo is the real product on a live database. Open the member view and the front desk
-                view together and watch a request cross between them.
+                view together, then watch a request cross from one to the other.
               </p>
               <Link
                 href="/demo"

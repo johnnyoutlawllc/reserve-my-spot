@@ -2,17 +2,19 @@
  * Every number on /pricing lives here.
  *
  * Reserve My Spot is a DataDay Studio product, and a prospect will read both
- * pricing pages in one sitting. Two rules follow from that:
+ * pricing pages in one sitting. One rule follows from that: no DataDay monthly
+ * price is reused for a Reserve My Spot plan. $169 buys a custom app on your own
+ * domain with a dedicated database over there, and matching that number here
+ * would make this look like less for the same money. The one-time go-live fees
+ * are $250 and $500 to match DataDay exactly, and the branding add-on is
+ * +$80/mo, the same delta as DataDay's $89 to $169 step.
  *
- *   1. The professional services ladder is reproduced verbatim from
- *      dataday.studio's `lib/plans.ts` (SERVICES). Same names, same prices,
- *      same hours. If it changes there, change it here.
- *   2. No DataDay monthly price is reused for a Reserve My Spot plan. $169 buys
- *      a custom app on your own domain with a dedicated database over there,
- *      and matching that number here would make this look like less for the
- *      same money. The one-time go-live fees are $250 and $500 to match DataDay
- *      exactly, and the branding add-on is +$80/mo, the same delta as DataDay's
- *      $89 to $169 step.
+ * The DataDay professional services ladder (Quarterly / Monthly / Bi-Weekly /
+ * Weekly Upgrades) used to be reproduced here as a SERVICES export, alongside a
+ * section comparing this to having an app built from scratch. Both came off the
+ * page in August 2026. They read as filler, and a spa shopping for a way to run
+ * its line does not need a second price ladder or a hypothetical build quote in
+ * the middle of one. Send anyone asking for build hours to dataday.studio.
  *
  * Positioning: price against vertical spa software ($129 to $176), not generic
  * queue tools ($29 to $59). Never describe this as waitlist software on a
@@ -70,7 +72,7 @@ export const PLANS: Plan[] = [
     range: 'One location',
     price: '$189',
     per: 'per month',
-    copy: 'One spa, one front desk, the whole product. Most of the places we talk to start here and never need anything else.',
+    copy: 'A single spa with one front desk, running the whole product. Most of the places we talk to start here and stay here.',
   },
   {
     id: 'few',
@@ -87,7 +89,7 @@ export const PLANS: Plan[] = [
     range: '6 to 20 locations',
     price: '$129',
     per: 'per location, per month',
-    copy: 'Set up a service menu once and push it everywhere, or let each location keep its own. Regional rollups and per-location reporting come standard.',
+    copy: 'Build a service menu once and push it out to every location, or let each one keep its own. Regional rollups and per-location reporting are in here too.',
     saving: '$60 a location off the single rate',
   },
   {
@@ -96,7 +98,7 @@ export const PLANS: Plan[] = [
     range: 'Over 20 locations',
     price: 'Let us talk',
     per: 'we will quote it',
-    copy: 'At this size the questions stop being about price and start being about your POS, your franchise agreements, and who owns the member list. Worth an actual conversation.',
+    copy: 'Past twenty locations the questions are usually about your POS, your franchise agreements, and who owns the member list. That takes a real conversation.',
   },
 ];
 
@@ -105,11 +107,11 @@ export const INCLUDED: { group: string; items: string[] }[] = [
   {
     group: 'The member app',
     items: [
-      'Live waits for every service, before they leave home',
-      'Request a spot, with position in line and an honest estimate',
-      'Opt-in location sharing, off by default, on per member',
+      'Live waits for every service, read from home',
+      'A request that comes back with a place in line and an honest estimate',
+      'Location sharing each member turns on for themselves',
       'Chat with whoever is working the front desk',
-      'Profiles, favorite services, and history between visits',
+      'Profiles that carry favorites and history between visits',
       'Your FAQ, right where the questions get asked',
     ],
   },
@@ -118,20 +120,20 @@ export const INCLUDED: { group: string; items: string[] }[] = [
     items: [
       'Incoming requests the instant a member makes one',
       'Live driving ETA, refreshed as they move',
-      'Late flagged against the minute the station actually opens',
-      'Grace period you set, then bump back or release in one tap',
-      'Every station, who is in it, and who is next, updating live',
-      'Call up, start, complete, bump back, release, all from one board',
+      'A member counts as late when the station opens without them',
+      'A grace period you set, then bump back or release in one tap',
+      'Every station live on the board, with who is in it and who follows',
+      'Call up, start, complete, bump back and release, all from one board',
     ],
   },
   {
     group: 'The admin console',
     items: [
-      'Your service menu, session lengths, and station counts',
-      'Store hours and how far ahead members may request',
-      'Staff roles and who can do what',
+      'Your service menu, with session lengths and station counts',
+      'Store hours and how far ahead a member may ask',
+      'Staff roles and who is allowed to do what',
       'Memberships and expiry dates',
-      'Station utilization reporting',
+      'Reporting on how hard each station works',
       'A rollup across every location you run',
     ],
   },
@@ -143,13 +145,13 @@ export const GO_LIVE = [
     name: 'On our platform',
     price: '$250',
     detail: 'yourspa.reservemy.spot',
-    copy: 'We build your service menu, station counts, hours and rules with you, load your membership list, and train the desk. One charge, the day you open it to members.',
+    copy: 'Your spa runs at an address of ours. Setup, loading the membership list and training the desk are all inside this number, charged the day you open it to members.',
   },
   {
     name: 'On your own domain',
     price: '$500',
     detail: 'book.yourspa.com',
-    copy: 'Everything above, plus the move onto an address of your own: DNS, certificates, sign-in and email from your name. Your members never see ours.',
+    copy: 'Everything in the first one, and then we move it onto an address you own. DNS, certificates, sign-in and email all come from your name.',
   },
 ];
 
@@ -157,60 +159,24 @@ export const ADD_ON = {
   name: 'Your own domain and branding',
   price: '+$80',
   per: 'per month',
-  copy: 'Your logo, your name, your address on every screen a member touches. Pairs with the $500 go-live fee.',
+  copy: 'Your logo and your name on every screen a member touches. Goes with the $500 go-live fee.',
 };
 
 /** Deliberately the lowest published number on the page. */
 export const FOUNDING = {
   head: 'Founding location rate',
-  body: 'We take on a small number of locations at a time. The first five lock $129 a month for twenty-four months. That is the rate a twenty-location chain pays, on one location, and it holds through both renewals.',
+  body: 'We take on a few locations at a time. The first five lock $129 a month for twenty-four months, which is what a twenty-location chain pays, and it holds through both renewals.',
 };
-
-/**
- * Reproduced from dataday.studio. Do not reword, rename, or reprice these here.
- * A spa that wants a POS integration, a custom report, or a data migration is
- * not a special case, it is Monthly Upgrades.
- */
-export const SERVICES = [
-  {
-    name: 'Quarterly Upgrades',
-    price: '$500',
-    per: 'per quarter',
-    hours: '4 hours a quarter',
-    copy: 'Four hours a quarter for upgrades and new features. We meet once a quarter, in person or over video, to talk through what is next.',
-  },
-  {
-    name: 'Monthly Upgrades',
-    price: '$500',
-    per: 'per month',
-    hours: '4 hours a month',
-    copy: 'Four hours every month for upgrades and new features. We meet monthly to talk about what comes next.',
-  },
-  {
-    name: 'Bi-Weekly Upgrades',
-    price: '$1,500',
-    per: 'per month',
-    hours: '15 hours a month',
-    copy: 'Fifteen hours a month and a meeting every two weeks, for an operation that is still growing.',
-  },
-  {
-    name: 'Weekly Upgrades',
-    price: '$4,000',
-    per: 'per month',
-    hours: '40 hours a month',
-    copy: 'Forty hours a month and a weekly meeting, with a named engineer who knows your operation inside out.',
-  },
-];
 
 /** DataDay's commitments, in DataDay's words. Same terms, same policy. */
 export const TERMS = [
   {
     b: 'Twelve months from go-live',
-    t: 'The term starts the day your location opens it to members, not the day you sign, and it renews each year. Thirty days notice before the renewal date stops the next one.',
+    t: 'The term starts the day your location opens it to members, and it renews each year after that. Thirty days notice ahead of a renewal date stops the next one.',
   },
   {
     b: 'Bug fixes at no charge',
-    t: 'If it stops doing what it was built to do, we fix it at no charge, and it never comes out of anyone’s hours. That holds on every plan, down to the cheapest.',
+    t: 'If it stops doing what it was built to do, we fix it and nobody’s hours get spent on it. That holds on every plan we sell.',
   },
   {
     b: 'Your data is yours',
@@ -218,6 +184,6 @@ export const TERMS = [
   },
   {
     b: 'Vendor costs at cost plus 20%',
-    t: 'Everything the app does today runs inside what your plan already covers, drive tracking included. Once in a while a job needs a platform beyond that: text messaging, heavy storage, a metered outside service, a premium tier your location needs. When it does, we talk it through and try to find a way around it. If there is no way around it, we set it up in accounts that belong to you and pass the cost through with a flat, itemized 20 percent on top for managing it. You see the number before anything gets switched on.',
+    t: 'Everything the app does today runs inside what your plan already covers, drive tracking included. Once in a while a job needs something beyond that, like text messaging or a metered outside service. We talk it through first and look for a way around it. When there is none, the account gets opened in your name and we pass the cost through with a flat, itemized 20 percent on top for managing it. You see that number before anything gets switched on.',
   },
 ];

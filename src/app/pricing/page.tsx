@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import { Mark, SiteHeader } from '@/components/SiteHeader';
 import { SiteFooter } from '@/components/SiteFooter';
-import { ADD_ON, FOUNDING, GO_LIVE, INCLUDED, PLANS, SERVICES, TERMS } from '@/lib/pricing';
+import { ADD_ON, FOUNDING, GO_LIVE, INCLUDED, PLANS, TERMS } from '@/lib/pricing';
 
 export const metadata = {
   title: 'Pricing',
   description:
-    'Reserve My Spot pricing, per location and per month. $189 for a single location, $159 each for two to five, $129 each for six to twenty, and a conversation past that. Every plan is the whole product.',
+    'Reserve My Spot pricing, per location and per month. $189 for a single location, $159 each for two to five, $129 each for six to twenty, and a quote past that. Every plan is the whole product.',
 };
 
 export default function PricingPage() {
@@ -28,14 +28,12 @@ export default function PricingPage() {
         <Included />
         <GoLive />
         <Founding />
-        <Services />
-        <VersusCustom />
         <Terms />
         <CrossLink />
         <Cta />
       </main>
 
-      <SiteFooter note="Prices are per location and shown in US dollars. Annual billing is pay for ten months, get twelve." />
+      <SiteFooter note="Prices are per location, in US dollars. Pay annually and you pay for ten months." />
     </div>
   );
 }
@@ -48,18 +46,17 @@ function Hero() {
       <div className="max-w-2xl">
         <Eyebrow>Pricing</Eyebrow>
         <h1 className="mt-4 text-[clamp(2.1rem,5.2vw,3.25rem)] font-semibold leading-[1.05] tracking-[-0.03em]">
-          One product. The price depends on how many locations you run.
+          There is one product, and the price moves with how many locations you run.
         </h1>
         <p className="mt-5 text-[16px] leading-relaxed text-muted">
-          There is no basic version and nothing held back for a higher tier. Every plan is the whole thing:
-          the app your members use, the board your front desk works, the console your office runs it from,
-          and the live drive tracking that makes any of it worth doing. The more locations you run, the less
-          each one costs.
+          Every plan is the whole thing. That means the app your members use, the board the front desk works
+          from, the admin console your office runs it all through, and the drive tracking that makes any of
+          it worth having. Once you are past a single location, the rate per location comes down.
         </p>
         <p className="mt-4 text-[14px] leading-relaxed text-faint">
-          Annual billing is pay for ten months and get twelve. There is no free tier and no per-message
-          billing: the demo already does the job a free plan would, and notifications are in-app, so a busy
-          Saturday never turns your flat bill into a variable one.
+          Pay annually and you pay for ten months instead of twelve. We do not run a free tier, because the
+          demo already does what one would do, and nothing here is billed per message, so a busy Saturday
+          leaves your bill exactly where it was.
         </p>
       </div>
     </section>
@@ -104,8 +101,8 @@ function Plans() {
       </div>
 
       <p className="mt-5 text-[13px] leading-relaxed text-faint">
-        Counting locations, not members, not stations, and not requests. Add a location mid-term and it
-        joins at whatever rate your new count lands on, prorated from the day it opens.
+        We count locations. A spa with four hundred members pays what a spa with forty pays. Add a location
+        mid-term and it joins at whatever rate your new count lands on, prorated from the day it opens.
       </p>
     </section>
   );
@@ -118,12 +115,11 @@ function Included() {
     <section className="mx-auto max-w-6xl px-5 py-16">
       <Eyebrow>In every plan</Eyebrow>
       <h2 className="mt-3 max-w-2xl text-[clamp(1.5rem,3.2vw,2.1rem)] font-semibold leading-tight tracking-tight">
-        There is no version of this that leaves out the good part.
+        Every plan carries the part you came here for.
       </h2>
       <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-muted">
-        Plenty of software puts the one feature you came for behind the top tier. The live drive tracking is
-        the whole reason this exists, so it is in the single-location plan at $189 the same as it is in the
-        twenty-location one. You are not buying features here, you are buying seats at the counter.
+        Drive tracking is the reason this product exists, so it sits in the $189 plan exactly the way it sits
+        in the twenty-location one. What the price reflects is how many front desks are running it.
       </p>
 
       <div className="mt-10 grid gap-4 lg:grid-cols-3">
@@ -153,12 +149,13 @@ function GoLive() {
       <div className="mx-auto max-w-6xl px-5">
         <Eyebrow>One time, to go live</Eyebrow>
         <h2 className="mt-3 max-w-2xl text-[clamp(1.5rem,3.2vw,2.1rem)] font-semibold leading-tight tracking-tight">
-          Getting configured is its own piece of work, and it is billed once.
+          Setting your spa up is its own piece of work, and we bill it once.
         </h2>
         <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-muted">
-          Your services, your session lengths, your station counts, your hours, your rules for who gets
-          bumped. We do that with you, load your membership list, and train the desk. Charged the day your
-          location opens it to members, and that is the same day your monthly bill starts.
+          We sit down with you and work out the service menu, how long a session runs on each one, how many
+          stations you have, when you open, and what happens to a member who misses their window. Then we
+          load your membership list and train the desk. The charge lands the day you open it to members,
+          which is the day your monthly bill starts too.
         </p>
 
         <div className="mt-8 grid gap-4 lg:grid-cols-3">
@@ -215,90 +212,6 @@ function Founding() {
   );
 }
 
-/* ----------------------------------------------------------------- services */
-
-function Services() {
-  return (
-    <section className="mx-auto max-w-6xl px-5 pb-16">
-      <Eyebrow>When you want something built</Eyebrow>
-      <h2 className="mt-3 max-w-2xl text-[clamp(1.5rem,3.2vw,2.1rem)] font-semibold leading-tight tracking-tight">
-        Changes and new features come from a build-time plan.
-      </h2>
-      <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-muted">
-        Your monthly plan keeps the application running and covers bug fixes. An integration with the
-        software you already pay for, a report nobody has built yet, a migration off whatever you are
-        leaving behind: that is build time, and you buy it in whatever size you need. These are DataDay
-        Studio&rsquo;s plans, unchanged, because this is not a special spa case.
-      </p>
-
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {SERVICES.map((s) => (
-          <div key={s.name} className="flex flex-col rounded-3xl border border-line bg-surface p-6">
-            <h3 className="text-[14.5px] font-semibold tracking-tight">{s.name}</h3>
-            <p className="mt-4 flex items-baseline gap-1.5">
-              <span className="text-[1.9rem] font-semibold leading-none tracking-tight">{s.price}</span>
-            </p>
-            <p className="mt-1.5 text-[12px] text-faint">{s.per}</p>
-            <p className="mt-4 inline-flex w-fit rounded-lg border border-line bg-surface-2 px-2.5 py-1 text-[11.5px] text-accent">
-              {s.hours}
-            </p>
-            <p className="mt-4 text-[13px] leading-relaxed text-muted">{s.copy}</p>
-          </div>
-        ))}
-      </div>
-
-      <p className="mt-5 text-[13px] text-faint">
-        Cancel any time, period to period. Bug fixes are never taken out of these hours.
-      </p>
-    </section>
-  );
-}
-
-/* ------------------------------------------------------------ versus custom */
-
-function VersusCustom() {
-  return (
-    <section className="border-y border-line-soft bg-shell/40 py-16">
-      <div className="mx-auto grid max-w-6xl gap-10 px-5 lg:grid-cols-[1fr_1fr] lg:items-center">
-        <div>
-          <Eyebrow>The question everybody asks</Eyebrow>
-          <h2 className="mt-3 text-[clamp(1.5rem,3.2vw,2.1rem)] font-semibold leading-tight tracking-tight">
-            How this compares to having one built.
-          </h2>
-          <p className="mt-4 text-[15px] leading-relaxed text-muted">
-            DataDay Studio&rsquo;s platform plans cover running your app, and they do not include build
-            time. A booking system built from scratch means a platform plan plus a professional services
-            plan at $500 a month minimum, plus the months it takes to build it.
-          </p>
-          <p className="mt-3 text-[15px] leading-relaxed text-muted">
-            Reserve My Spot is that build, already done, running this week.
-          </p>
-        </div>
-
-        <div className="rounded-3xl border border-line bg-surface p-6 sm:p-7">
-          <ul className="space-y-4">
-            {[
-              ['Built from scratch', 'A platform plan, plus $500 a month or more in build time, plus the months.'],
-              ['Reserve My Spot', 'One monthly number, one go-live fee, and members using it this week.'],
-            ].map(([t, d], i) => (
-              <li key={t} className={`border-l-2 pl-4 ${i === 1 ? 'border-accent' : 'border-line'}`}>
-                <p className={`text-[14px] font-semibold tracking-tight ${i === 1 ? 'text-accent' : ''}`}>
-                  {t}
-                </p>
-                <p className="mt-1 text-[13.5px] leading-relaxed text-muted">{d}</p>
-              </li>
-            ))}
-          </ul>
-          <p className="mt-6 border-t border-line-soft pt-5 text-[13px] leading-relaxed text-faint">
-            The three surfaces, the realtime board, the wait math and the drive tracking already exist and
-            already work. You are paying to configure them around your spa, not to invent them.
-          </p>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 /* -------------------------------------------------------------------- terms */
 
 function Terms() {
@@ -331,9 +244,9 @@ function CrossLink() {
           Run something other than a spa?
         </h2>
         <p className="mt-3 max-w-2xl text-[14.5px] leading-relaxed text-muted">
-          Reserve My Spot was built by DataDay Studio for one location&rsquo;s specific problem. If yours is
-          different, that is what the studio does. An $89 proof puts a working version of your idea on the
-          internet in a week.
+          DataDay Studio built Reserve My Spot for one location&rsquo;s specific problem. If yours is
+          different, that is the work the studio does. An $89 proof puts a working version of your idea on
+          the internet inside a week.
         </p>
         <a
           href="https://dataday.studio"
@@ -356,8 +269,9 @@ function Cta() {
           Tell us how your line works today.
         </h2>
         <p className="mx-auto mt-3 max-w-xl text-[15px] leading-relaxed text-muted">
-          Your services, your station counts, your busiest hour. We will tell you which plan fits and what
-          the first month actually costs, with no call required.
+          Send over what you run, how many stations each service has, and when your busiest hour hits. We
+          will come back with the plan that fits and what the first month actually costs. Nobody has to get
+          on a call for that.
         </p>
         <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
           <Link

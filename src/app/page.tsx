@@ -6,7 +6,7 @@ import { ServiceIcon } from '@/components/ServiceIcon';
 export const metadata = {
   title: 'Reserve My Spot · Hold your spot at the spa before you leave home',
   description:
-    'A waitlist app for premium spa memberships. Members claim a spot for Red Light Therapy, the Wave Massage bed, tanning and more, share their drive, and the front desk knows who is actually on the way.',
+    'Spa members claim a spot for Red Light Therapy, the Wave bed or tanning from home. They share the drive over, and your front desk can see how far out each one really is.',
 };
 
 /* ------------------------------------------------------------------ content */
@@ -14,7 +14,7 @@ export const metadata = {
 const SERVICES = [
   { icon: 'redlight', name: 'Red Light Therapy', note: 'Panel time by the session' },
   { icon: 'wave', name: 'Wave Massage Bed', note: 'The one with the line' },
-  { icon: 'tanning', name: 'Tanning Beds', note: 'Every level, every bed' },
+  { icon: 'tanning', name: 'Tanning Beds', note: 'Every level you offer' },
   { icon: 'sauna', name: 'Infrared Sauna', note: 'Rooms and pods' },
   { icon: 'cryo', name: 'Cryotherapy', note: 'Single-chamber turns' },
   { icon: 'compression', name: 'Compression', note: 'Boots and recovery chairs' },
@@ -25,23 +25,23 @@ const SERVICES = [
 const STEPS = [
   {
     n: '01',
-    title: 'Member picks a service',
-    body: 'They open the app at home, see what the wait actually looks like right now, and request a spot for the time they plan to arrive.',
+    title: 'A member picks a service',
+    body: 'At home, they open the app and look at what the wait is right now. Then they ask for a spot at the hour they plan to show up.',
   },
   {
     n: '02',
-    title: 'The desk sees it land',
-    body: 'The request shows up on the front desk board the instant it is made. One tap to accept, and the member gets a position and a time.',
+    title: 'It lands at the desk',
+    body: 'The request appears on the front desk board the second it is made. A rep taps accept, and the member has a place in line and a time to be there.',
   },
   {
     n: '03',
-    title: 'The drive is tracked',
-    body: 'With location sharing on, the app compares their live driving ETA against when the station actually frees up. The desk stops guessing.',
+    title: 'You watch the drive',
+    body: 'If the member turns location sharing on, the app checks how long their drive will take against the minute their station frees up, and keeps checking as they move.',
   },
   {
     n: '04',
-    title: 'They walk in and go',
-    body: 'Called up on arrival, no lobby, no clipboard. If someone is going to miss their window, staff know early enough to do something about it.',
+    title: 'They arrive and go straight in',
+    body: 'A rep calls them up at the door and they walk to the station. When somebody is going to miss their window, the desk hears about it early enough to do something.',
   },
 ];
 
@@ -64,7 +64,7 @@ export default function HomePage() {
       </main>
 
       <SiteFooter
-        note="Members, staff and sessions shown on this page are illustrative. The demo runs on a shared live database seeded with fictional accounts, so anything you do there is visible to anyone else with the link."
+        note="The members, staff and sessions on this page are made up for illustration. The demo runs on a shared live database seeded with fictional accounts, so anything you do there is visible to anyone else holding the link."
       />
     </div>
   );
@@ -88,9 +88,9 @@ function Hero() {
           </h1>
 
           <p className="mt-6 max-w-xl text-[16px] leading-relaxed text-muted">
-            Red Light Therapy, the Wave Massage bed, tanning: the popular stations always draw a line, and
-            today the only way into it is to drive over and wait. Reserve My Spot puts that same line on your
-            members&rsquo; phones, and puts their live drive time in front of your staff.
+            Red Light Therapy and the Wave bed always have somebody waiting on them. Today a member gets into
+            that line one way, by driving over and standing in it. Reserve My Spot moves the line onto their
+            phone, and your staff can see how far out each person really is.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -107,7 +107,7 @@ function Hero() {
           </div>
 
           <p className="mt-4 text-[13px] text-faint">
-            The demo is open to everyone, no account needed. Sign in to keep a profile.
+            The demo is open to anyone and needs no account. Sign in if you want to keep a profile.
           </p>
         </div>
 
@@ -186,7 +186,8 @@ function HeroPreview() {
           <DeskRow name="T. Okafor" detail="ETA 12 min · panel opens in 4" tone="alert" />
         </ul>
         <p className="mt-3 text-[10.5px] leading-relaxed text-faint">
-          The third member is going to miss their window. The desk finds out now, not at the counter.
+          The third member is going to miss their window, and the desk knows about it while there is still
+          time to move somebody up.
         </p>
       </div>
     </div>
@@ -224,8 +225,8 @@ function Services() {
           Anything with a limited number of stations can have a line worth managing.
         </h2>
         <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-muted">
-          You define the service menu. Each one carries its own session length and station count, and the
-          waitlist math follows from there.
+          You define the service menu. Every service gets a session length and a station count, and the
+          estimates come out of those two numbers.
         </p>
 
         <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -256,7 +257,7 @@ function HowItWorks() {
     <section id="how" className="mx-auto max-w-6xl px-5 py-20">
       <Eyebrow>How it works</Eyebrow>
       <h2 className="mt-3 max-w-2xl text-[clamp(1.6rem,3.4vw,2.25rem)] font-semibold leading-tight tracking-tight">
-        The same line you run today, minus the lobby.
+        What one request looks like, from the couch to the station.
       </h2>
 
       <ol className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -279,30 +280,30 @@ function Features() {
     <section id="features" className="mx-auto max-w-6xl px-5 pb-20">
       <Eyebrow>What members and staff get</Eyebrow>
       <h2 className="mt-3 max-w-2xl text-[clamp(1.6rem,3.4vw,2.25rem)] font-semibold leading-tight tracking-tight">
-        More than a name on a list.
+        Everything your desk needs to hold a spot for the right person.
       </h2>
 
       <div className="mt-10 grid gap-4 lg:grid-cols-3">
         <div className="relative overflow-hidden rounded-3xl border border-line bg-surface p-6 lg:col-span-2 lg:p-8">
           <div className="pointer-events-none absolute -right-16 -top-16 size-64 rounded-full bg-accent/8 blur-3xl" />
           <span className="inline-flex items-center gap-1.5 rounded-full border border-alert/35 bg-alert-wash px-2.5 py-1 text-[11px] font-medium text-alert">
-            The part booking software can&rsquo;t do
+            Where this parts ways with booking software
           </span>
           <h3 className="mt-4 text-[clamp(1.25rem,2.4vw,1.6rem)] font-semibold leading-snug tracking-tight">
-            Staff can tell the difference between a member who is on the way and one who isn&rsquo;t.
+            Your staff can see who is out there driving over.
           </h3>
           <p className="mt-3 max-w-xl text-[14.5px] leading-relaxed text-muted">
-            A phone call tells you someone <em>says</em> they will be there at four. Opt-in location sharing
-            tells you their driving ETA right now, checked against the minute their station actually frees up.
-            Once they cross the grace period you set, the desk has one decision to make: bump them back, or release the
-            spot. No awkward wait, no idle station.
+            A member who phones ahead is telling you where they <em>intend</em> to be at four o&rsquo;clock.
+            Turn on location sharing and you get the drive as it stands this minute, measured against when
+            their station opens. Once they pass the grace period you set, a rep decides whether to bump them
+            back or hand the spot to whoever is behind them.
           </p>
           <ul className="mt-6 grid gap-2 sm:grid-cols-2">
             {[
               'Live driving ETA, refreshed as they move',
-              'Late flagged against the real station opening',
-              'Grace period is yours to set',
-              'Opt-in per member, off by default',
+              'A member counts as late when the station opens without them',
+              'You set the grace period',
+              'Each member opts in, and it starts off',
             ].map((t) => (
               <li key={t} className="flex items-start gap-2 text-[13px] text-muted">
                 <Check />
@@ -314,7 +315,7 @@ function Features() {
 
         <FeatureCard
           title="Member profiles"
-          body="Members sign in, keep their favorite services one tap away, and carry their preferences and history between visits instead of restating them at the counter."
+          body="A member signs in once and the services they use most are waiting for them next time. History and preferences travel with the account, so nobody has to say all of it again at the counter."
           icon={
             <>
               <circle cx="12" cy="8" r="3.5" />
@@ -324,7 +325,7 @@ function Features() {
         />
         <FeatureCard
           title="Chat with the front desk"
-          body="A direct thread between the member and whoever is working the desk. Running late, swapping a service, asking whether the sauna is free: answered without a phone call."
+          body="One thread between a member and whoever happens to be working the desk. They can ask whether the sauna is free, or say they are running behind, without anybody picking up a phone."
           icon={
             <>
               <path d="M20 15a3 3 0 0 1-3 3H8l-4 3V6a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3Z" />
@@ -334,7 +335,7 @@ function Features() {
         />
         <FeatureCard
           title="Answers built in"
-          body="Your FAQ lives inside the app and is edited from the admin console, so the desk stops fielding the same five questions and members stop guessing."
+          body="Your FAQ sits inside the app, and you edit it from the admin console. The desk ends up fielding the same five questions a lot less often."
           icon={
             <>
               <circle cx="12" cy="12" r="9" />
@@ -345,7 +346,7 @@ function Features() {
         />
         <FeatureCard
           title="Honest wait times"
-          body="Estimates come from your own session lengths and station counts, simulated forward through the current line, not a flat guess that ages badly by mid-afternoon."
+          body="An estimate runs your own session lengths and station counts forward through whoever is already in line. At four in the afternoon it still describes the room you actually have."
           icon={
             <>
               <circle cx="12" cy="12" r="8.5" />
@@ -355,7 +356,7 @@ function Features() {
         />
         <FeatureCard
           title="A room board that keeps up"
-          body="Every station, who is in it, and who is next, updating live on every screen at once. Call up, start, complete, bump back, or release from the same board."
+          body="Every station on one board, showing who is in it and who comes next, live on every screen at once. Calling up, starting, completing, bumping back and releasing all happen right there."
           icon={
             <>
               <rect x="3" y="4" width="18" height="16" rx="2.5" />
@@ -365,7 +366,7 @@ function Features() {
         />
         <FeatureCard
           title="You run the settings"
-          body="Memberships and expiry dates, staff roles, the service menu, store hours, how far ahead members may request, and whether online requests are open at all."
+          body="Memberships and when they expire, who on staff can do what, the service menu, your hours, and how far ahead a member is allowed to ask. You can also close online requests entirely."
           icon={
             <>
               <circle cx="12" cy="12" r="3" />
@@ -414,18 +415,19 @@ function DeskSection() {
     <section className="border-y border-line-soft bg-shell/40 py-20">
       <div className="mx-auto grid max-w-6xl gap-12 px-5 lg:grid-cols-2 lg:items-center">
         <div>
-          <Eyebrow>Three surfaces, one live database</Eyebrow>
+          <Eyebrow>Three views, one live database</Eyebrow>
           <h2 className="mt-3 text-[clamp(1.6rem,3.4vw,2.25rem)] font-semibold leading-tight tracking-tight">
-            Members, the front desk, and the office each get their own view.
+            Everybody who touches it gets a screen built around their job.
           </h2>
           <p className="mt-4 text-[15px] leading-relaxed text-muted">
-            Everything is realtime. A member requests a spot and it appears at the desk immediately; the desk
-            calls someone up and their phone knows before they reach the counter. No refresh button anywhere.
+            All of it is realtime. A member asks for a spot and it lands at the desk in the same second, and
+            when a rep calls that member up, the phone in their hand knows about it before they reach the
+            counter. Nothing here has a refresh button.
           </p>
 
           <dl className="mt-8 space-y-4">
             {[
-              ['Member app', 'Live waits, request a spot, position and estimate, location sharing, chat, FAQ.'],
+              ['Member app', 'Live waits, a request button, your place in line and a time, location sharing, chat, and the FAQ.'],
               [
                 'Front desk portal',
                 'Incoming requests, the room board, driving ETA against turn time, call up, start, complete, bump, release.',
@@ -490,11 +492,11 @@ function DeskSection() {
 const LANES = [
   {
     title: 'Member app',
-    body: 'What a member sees on their phone. Pick a service, watch the wait, share the drive.',
+    body: 'What a member sees on their phone, from picking a service through to sharing the drive over.',
   },
   {
     title: 'Front desk portal',
-    body: 'Incoming requests, the room board, and every member’s ETA. Accept, call up, bump, release.',
+    body: 'Incoming requests, the room board, and how far out everybody is. Accept, call up, bump or release from here.',
   },
   {
     title: 'Admin console',
@@ -516,9 +518,9 @@ function DemoSection() {
               Walk through the whole thing yourself.
             </h2>
             <p className="mt-3 text-[15px] leading-relaxed text-muted">
-              No sign-up, no sales call. The demo is the real application running against a live database with
-              fictional members. Open the member view on your phone and the front desk on a laptop, and the two
-              will talk to each other in real time.
+              There is nothing to sign up for. The demo is the real application, running on a live database
+              seeded with fictional members. Put the member view on your phone and the front desk on a laptop,
+              and the two will talk to each other while you watch.
             </p>
             <Link
               href="/demo"
@@ -572,8 +574,9 @@ function Pilot() {
           Want this running at your spa?
         </h2>
         <p className="mx-auto mt-3 max-w-xl text-[15px] leading-relaxed text-muted">
-          We take on a small number of locations at a time and configure it with you: your services, your
-          station counts, your hours, your rules for who gets bumped. Tell us how your line works today.
+          We take on a few locations at a time, and setting one up is something we do sitting with you. That
+          covers the services you run, how many stations each one has, when you open, and what should happen
+          to a member who misses their window. Start by telling us how the line works at your place today.
         </p>
         <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
           <Link
@@ -596,7 +599,7 @@ function Pilot() {
           </Link>
         </div>
         <p className="mt-5 text-[13px] text-faint">
-          $189 a month for a single location, less per location as you grow. Every number is published.
+          A single location is $189 a month, and the rate per location comes down as you add more.
         </p>
       </div>
     </section>

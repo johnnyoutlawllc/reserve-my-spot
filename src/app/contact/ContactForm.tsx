@@ -80,7 +80,7 @@ export function ContactForm() {
       <div className="mt-6">
         <label htmlFor="message" className="text-[13px] font-medium text-muted">
           How does your line work today?{' '}
-          <span className="text-faint">Which services draw the wait?</span>
+          <span className="text-faint">Which services do people end up waiting on?</span>
         </label>
         <textarea
           id="message"
@@ -168,8 +168,8 @@ function Sent({ onAgain }: { onAgain: () => void }) {
       </span>
       <h2 className="mt-5 text-xl font-semibold tracking-tight">That is with us.</h2>
       <p className="mt-3 max-w-md text-[15px] leading-relaxed text-muted">
-        We read everything that comes in and answer from a real address, so you can just reply to us. If
-        it is urgent, sales@reservemy.spot reaches the same people.
+        We read everything that comes in, and the answer arrives from a real address you can reply to. If
+        something is urgent before then, sales@reservemy.spot reaches the same people.
       </p>
       <button
         onClick={onAgain}

@@ -21,7 +21,7 @@ const LANES: {
     key: 'member',
     title: 'Member app',
     blurb:
-      'What a premium member sees on their phone. Pick a service, watch the live wait, share location so the desk holds your spot.',
+      'What a member sees on their phone. Pick a service, then watch the wait while you share your location so the desk knows you are coming.',
     cta: 'Open as member',
     href: '/m',
     icon: (
@@ -35,7 +35,7 @@ const LANES: {
     key: 'support',
     title: 'Front desk portal',
     blurb:
-      'Incoming requests, the live room board, and every member’s driving ETA. Accept, call up, bump, or release a spot.',
+      'Incoming requests, the live room board, and how far out each member is. You can accept, call up, bump or release from here.',
     cta: 'Open as support rep',
     href: '/support',
     icon: (
@@ -63,7 +63,7 @@ const LANES: {
     key: 'split',
     title: 'Member and front desk together',
     blurb:
-      'Both screens on one page, side by side on a desktop and stacked on a phone. Drag the bar to resize, hide either side, and watch a request land at the desk as you make it.',
+      'Both screens on one page, side by side on a desktop and stacked on a phone. Drag the bar to resize it, hide either half, and watch a request land at the desk as you make it.',
     cta: 'Open both views',
     href: '/demo/split',
     icon: (
@@ -138,10 +138,9 @@ export default function LandingPage() {
           Take the whole product for a spin.
         </h1>
         <p className="mt-4 text-[15px] leading-relaxed text-muted">
-          This is the real application, running against a live database seeded with fictional members. Premium
-          spa members claim a spot before they leave the house; the front desk sees the request the instant it
-          lands, along with the member’s live driving ETA, so a spot is held for someone genuinely on the way,
-          and released when they aren’t.
+          This is the real application, running on a live database seeded with fictional members. A spa member
+          claims a spot before leaving the house. The front desk watches that request land, sees how far out
+          the member is driving, and decides from there whether to keep holding the spot.
         </p>
         <p className="mt-3 text-sm leading-relaxed text-faint">
           No account needed. Pick any identity below and you are in.
@@ -164,9 +163,9 @@ export default function LandingPage() {
       <section className="mt-10">
         <h2 className="text-sm font-semibold uppercase tracking-wider text-faint">Pick a seat</h2>
         <p className="mt-1.5 text-sm text-muted">
-          Three surfaces, one live database. Member and staff sign-ins are kept separate, so you can be a
-          member in one tab and the front desk in another and watch them talk to each other. Or take the
-          last card and get both on one screen.
+          Member and staff sign-ins are kept apart here, so one browser can be a member in one tab and the
+          front desk in another, and you can watch the two talk to each other. The last card puts both of
+          them on a single screen.
         </p>
 
         {signedInMember || signedInStaff ? (
@@ -217,8 +216,8 @@ export default function LandingPage() {
 
       <footer className="mt-14 border-t border-line-soft pt-6 text-xs leading-relaxed text-faint">
         <p>
-          Demo build. Seeded members and staff are fictional, and front desk actions write to a live shared
-          database, so anything you do here is visible to anyone else with the link.
+          This is a demo build. The seeded members and staff are fictional, and front desk actions write to a
+          live shared database, so anything you do here is visible to anyone else holding the link.
         </p>
         <p className="mt-2">
           <a
