@@ -7,7 +7,7 @@ import { useLiveTable } from '@/lib/db';
 import { useSession } from '@/lib/session';
 import type { Member, Service, Settings, Staff } from '@/lib/types';
 
-type Lane = 'member' | 'support' | 'admin';
+type Lane = 'member' | 'support' | 'admin' | 'split';
 
 const LANES: {
   key: Lane;
@@ -59,6 +59,20 @@ const LANES: {
       </svg>
     ),
   },
+  {
+    key: 'split',
+    title: 'Member and front desk together',
+    blurb:
+      'Both screens on one page, side by side on a desktop and stacked on a phone. Drag the bar to resize, hide either side, and watch a request land at the desk as you make it.',
+    cta: 'Open both views',
+    href: '/demo/split',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="size-5">
+        <rect x="2.5" y="4.5" width="19" height="15" rx="2.5" />
+        <path d="M12 4.5v15" />
+      </svg>
+    ),
+  },
 ];
 
 export default function LandingPage() {
@@ -79,11 +93,27 @@ export default function LandingPage() {
   // into the app. You can swap to anyone else from the switcher in the top bar.
   function defaultFor(lane: Lane): Member | Staff | undefined {
     if (lane === 'member') return members.find((m) => m.is_active) ?? members[0];
-    if (lane === 'support') return staff.find((s) => s.role === 'support');
-    return staff.find((s) => s.role === 'admin');
+    if (lane === 'admin') return staff.find((s) => s.role === 'admin');
+    return staff.find((s) => s.role === 'support'); // support, and the desk half of split
+  }
+
+  function readyFor(lane: Lane) {
+    if (lane === 'split') return Boolean(defaultFor('member') && defaultFor('support'));
+    return Boolean(defaultFor(lane));
   }
 
   function enter(l: (typeof LANES)[number]) {
+    if (l.key === 'split') {
+      const asMember = defaultFor('member');
+      const atDesk = defaultFor('support');
+      if (!asMember || !atDesk) return;
+      // Split needs both seats filled at once. Anyone already signed in keeps
+      // their identity so the pair you picked earlier is the pair you see.
+      if (!signedInMember) signIn({ kind: 'member', id: asMember.id });
+      if (!signedInStaff) signIn({ kind: 'staff', id: atDesk.id });
+      router.push(l.href);
+      return;
+    }
     const pick = defaultFor(l.key);
     if (!pick) return; // data still loading; the button is disabled until it lands
     signIn({ kind: l.key === 'member' ? 'member' : 'staff', id: pick.id });
@@ -135,7 +165,8 @@ export default function LandingPage() {
         <h2 className="text-sm font-semibold uppercase tracking-wider text-faint">Pick a seat</h2>
         <p className="mt-1.5 text-sm text-muted">
           Three surfaces, one live database. Member and staff sign-ins are kept separate, so you can be a
-          member in one tab and the front desk in another and watch them talk to each other.
+          member in one tab and the front desk in another and watch them talk to each other. Or take the
+          last card and get both on one screen.
         </p>
 
         {signedInMember || signedInStaff ? (
@@ -157,9 +188,9 @@ export default function LandingPage() {
           </div>
         ) : null}
 
-        <div className="mt-5 grid gap-4 lg:grid-cols-3">
+        <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {LANES.map((l) => {
-            const ready = Boolean(defaultFor(l.key));
+            const ready = readyFor(l.key);
             return (
               <Card key={l.key} className="flex flex-col p-5">
                 <div className="flex size-10 items-center justify-center rounded-xl border border-accent/25 bg-accent-wash text-accent">
