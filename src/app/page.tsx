@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { AuthButton, Mark, SiteHeader } from '@/components/SiteHeader';
+import { SiteFooter } from '@/components/SiteFooter';
 import { ServiceIcon } from '@/components/ServiceIcon';
 
 export const metadata = {
@@ -44,33 +45,6 @@ const STEPS = [
   },
 ];
 
-const FAQ = [
-  {
-    q: 'Is this just online booking?',
-    a: 'No. Booking hands out a fixed appointment slot and hopes the person shows. Reserve My Spot runs the line you already run (first come, first served) but lets members take their place in it from home, and shows the desk who is genuinely en route.',
-  },
-  {
-    q: 'How does the app know a member is late?',
-    a: 'If the member opts into location sharing, the app sends a periodic driving ETA. The desk compares that ETA to the moment the station opens up. Past the grace period you set, the rep gets a clear choice: bump them back a place, or release the spot to the next member.',
-  },
-  {
-    q: 'What if a member does not want to share location?',
-    a: 'Location is opt-in per member and can be switched off at any time. Without it they still get a spot, a position, and notifications. The desk just sees a self-reported arrival time instead of a live one.',
-  },
-  {
-    q: 'Where do the wait times come from?',
-    a: 'From your own configuration. Each service carries a session length and a number of stations, and the app simulates the current line against them. Change the number of tanning beds and every estimate updates.',
-  },
-  {
-    q: 'Does the front desk need new hardware?',
-    a: 'No. The desk portal and the admin console run in a browser on whatever you already have, and members use the browser on their phone. There is nothing to install from an app store.',
-  },
-  {
-    q: 'Can we try it before committing?',
-    a: 'The demo is the real product running against a live database, seeded with fictional members. Open the member view on your phone and the front desk view on a laptop and watch them talk to each other.',
-  },
-];
-
 /* --------------------------------------------------------------------- page */
 
 export default function HomePage() {
@@ -86,11 +60,12 @@ export default function HomePage() {
         <Features />
         <DeskSection />
         <DemoSection />
-        <Faq />
         <Pilot />
       </main>
 
-      <Footer />
+      <SiteFooter
+        note="Members, staff and sessions shown on this page are illustrative. The demo runs on a shared live database seeded with fictional accounts, so anything you do there is visible to anyone else with the link."
+      />
     </div>
   );
 }
@@ -586,35 +561,6 @@ function DemoSection() {
   );
 }
 
-/* ---------------------------------------------------------------------- faq */
-
-function Faq() {
-  return (
-    <section id="faq" className="mx-auto max-w-3xl px-5 pb-20">
-      <Eyebrow>Questions</Eyebrow>
-      <h2 className="mt-3 text-[clamp(1.6rem,3.4vw,2.25rem)] font-semibold leading-tight tracking-tight">
-        Before you ask.
-      </h2>
-
-      <div className="mt-8 divide-y divide-line-soft border-y border-line-soft">
-        {FAQ.map((f) => (
-          <details key={f.q} className="group py-4">
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-[15px] font-medium tracking-tight">
-              {f.q}
-              <span className="flex size-6 shrink-0 items-center justify-center rounded-full border border-line text-faint transition-transform group-open:rotate-45">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="size-3">
-                  <path d="M12 5v14M5 12h14" strokeLinecap="round" />
-                </svg>
-              </span>
-            </summary>
-            <p className="mt-3 pr-10 text-[14px] leading-relaxed text-muted">{f.a}</p>
-          </details>
-        ))}
-      </div>
-    </section>
-  );
-}
-
 /* -------------------------------------------------------------------- pilot */
 
 function Pilot() {
@@ -645,55 +591,6 @@ function Pilot() {
         </div>
       </div>
     </section>
-  );
-}
-
-/* ------------------------------------------------------------------- footer */
-
-function Footer() {
-  return (
-    <footer className="border-t border-line-soft">
-      <div className="mx-auto flex max-w-6xl flex-col gap-6 px-5 py-10 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex items-center gap-2.5">
-          <Mark className="size-7" />
-          <span className="text-[13.5px] font-medium tracking-tight">Reserve My Spot</span>
-        </div>
-        <nav className="flex flex-wrap items-center gap-x-6 gap-y-2 text-[13px] text-muted">
-          <a href="#how" className="transition-colors hover:text-text">
-            How it works
-          </a>
-          <a href="#features" className="transition-colors hover:text-text">
-            Features
-          </a>
-          <a href="#faq" className="transition-colors hover:text-text">
-            FAQ
-          </a>
-          <Link href="/demo" className="transition-colors hover:text-text">
-            Demo
-          </Link>
-          <Link href="/contact" className="transition-colors hover:text-text">
-            Contact
-          </Link>
-        </nav>
-      </div>
-      <div className="mx-auto max-w-6xl px-5 pb-10 text-[12px] leading-relaxed text-faint">
-        <p>
-          Members, staff and sessions shown on this page are illustrative. The demo runs on a shared live
-          database seeded with fictional accounts, so anything you do there is visible to anyone else with the
-          link.
-        </p>
-        <p className="mt-2">
-          <a
-            href="https://dataday.studio"
-            className="underline decoration-line underline-offset-2 transition-colors hover:text-accent"
-          >
-            a dataday.studio project
-          </a>
-          <span className="px-1.5">·</span>
-          Designed in Rockwall, TX
-        </p>
-      </div>
-    </footer>
   );
 }
 

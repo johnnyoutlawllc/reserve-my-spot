@@ -50,22 +50,10 @@ export function ContactForm() {
       noValidate={false}
     >
       <div className="grid gap-5 sm:grid-cols-2">
-        <Field label="Your name" name="name" required autoComplete="name" placeholder="Dana Whitfield" />
-        <Field
-          label="Email"
-          name="email"
-          type="email"
-          required
-          autoComplete="email"
-          placeholder="dana@yourspa.com"
-        />
-        <Field
-          label="Spa or business"
-          name="company"
-          autoComplete="organization"
-          placeholder="Serenity Springs"
-        />
-        <Field label="Phone" name="phone" type="tel" autoComplete="tel" placeholder="Optional" />
+        <Field label="Your name" name="name" required autoComplete="name" />
+        <Field label="Email" name="email" type="email" required autoComplete="email" />
+        <Field label="Business name" name="company" autoComplete="organization" />
+        <Field label="Phone" name="phone" type="tel" autoComplete="tel" />
       </div>
 
       <fieldset className="mt-6">
@@ -100,8 +88,7 @@ export function ContactForm() {
           required
           rows={6}
           maxLength={4000}
-          placeholder="Red Light and the massage bed back up every evening. Members drive over and sit in the lobby, and we lose the ones who give up."
-          className="mt-2 w-full resize-y rounded-2xl border border-line bg-ink px-4 py-3 text-[14px] leading-relaxed text-text placeholder:text-faint/70 focus:border-accent/50 focus:outline-none focus:ring-2 focus:ring-accent/25"
+          className="mt-2 w-full resize-y rounded-2xl border border-line bg-ink px-4 py-3 text-[14px] leading-relaxed text-text focus:border-accent/50 focus:outline-none focus:ring-2 focus:ring-accent/25"
         />
       </div>
 
@@ -122,7 +109,7 @@ export function ContactForm() {
         </p>
       ) : null}
 
-      <div className="mt-7 flex flex-wrap items-center gap-4">
+      <div className="mt-7">
         <button
           type="submit"
           disabled={sending}
@@ -135,9 +122,6 @@ export function ContactForm() {
             </svg>
           )}
         </button>
-        <p className="text-[12px] leading-relaxed text-faint">
-          Goes straight to our sales inbox. We do not add you to a list.
-        </p>
       </div>
     </form>
   );
@@ -148,14 +132,12 @@ function Field({
   name,
   type = 'text',
   required,
-  placeholder,
   autoComplete,
 }: {
   label: string;
   name: string;
   type?: string;
   required?: boolean;
-  placeholder?: string;
   autoComplete?: string;
 }) {
   return (
@@ -169,9 +151,8 @@ function Field({
         name={name}
         type={type}
         required={required}
-        placeholder={placeholder}
         autoComplete={autoComplete}
-        className="mt-2 h-12 w-full rounded-2xl border border-line bg-ink px-4 text-[14px] text-text placeholder:text-faint/70 focus:border-accent/50 focus:outline-none focus:ring-2 focus:ring-accent/25"
+        className="mt-2 h-12 w-full rounded-2xl border border-line bg-ink px-4 text-[14px] text-text focus:border-accent/50 focus:outline-none focus:ring-2 focus:ring-accent/25"
       />
     </div>
   );

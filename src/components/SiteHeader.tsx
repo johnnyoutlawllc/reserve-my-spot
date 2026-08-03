@@ -8,7 +8,6 @@ const NAV = [
   { href: '#how', label: 'How it works' },
   { href: '#features', label: 'Features' },
   { href: '#services', label: 'Services' },
-  { href: '#faq', label: 'FAQ' },
 ];
 
 export function SiteHeader() {

@@ -1,5 +1,6 @@
 import { ContactForm } from './ContactForm';
 import { Mark, SiteHeader } from '@/components/SiteHeader';
+import { SiteFooter } from '@/components/SiteFooter';
 import Link from 'next/link';
 
 export const metadata = {
@@ -32,11 +33,7 @@ export default function ContactPage() {
 
       <main className="relative mx-auto max-w-6xl px-5 pb-24 pt-10 sm:pt-16">
         <div className="max-w-2xl">
-          <span className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1 text-[12px] text-muted">
-            <span className="rms-live size-1.5 rounded-full bg-accent" />
-            Usually a same-day reply
-          </span>
-          <h1 className="mt-5 text-[clamp(2.1rem,5.2vw,3.25rem)] font-semibold leading-[1.05] tracking-[-0.03em]">
+          <h1 className="text-[clamp(2.1rem,5.2vw,3.25rem)] font-semibold leading-[1.05] tracking-[-0.03em]">
             Tell us how your line works today.
           </h1>
           <p className="mt-5 text-[16px] leading-relaxed text-muted">
@@ -87,13 +84,11 @@ export default function ContactPage() {
                 Open the live demo
               </Link>
             </div>
-
-            <p className="mt-8 text-[12px] leading-relaxed text-faint">
-              Designed in Rockwall, TX. We answer from Central time.
-            </p>
           </aside>
         </div>
       </main>
+
+      <SiteFooter />
     </div>
   );
 }
