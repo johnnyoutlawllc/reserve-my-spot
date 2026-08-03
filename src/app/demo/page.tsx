@@ -221,9 +221,14 @@ export default function LandingPage() {
           database, so anything you do here is visible to anyone else with the link.
         </p>
         <p className="mt-2">
-          <a href="https://69.studio" className="text-muted underline decoration-line hover:text-accent">
-            A 69.studio project
+          <a
+            href="https://dataday.studio"
+            className="text-muted underline decoration-line hover:text-accent"
+          >
+            a dataday.studio project
           </a>
+          <span className="px-1.5">·</span>
+          Designed in Rockwall, TX
         </p>
       </footer>
     </main>

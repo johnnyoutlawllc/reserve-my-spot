@@ -631,7 +631,7 @@ function Pilot() {
         </p>
         <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
           <a
-            href="mailto:hello@69.studio?subject=Reserve%20My%20Spot"
+            href="mailto:sales@dataday.studio?subject=Reserve%20My%20Spot"
             className="inline-flex h-12 items-center rounded-2xl bg-accent px-6 text-[15px] font-semibold text-ink transition-colors hover:bg-accent/90"
           >
             Start a conversation
@@ -671,7 +671,7 @@ function Footer() {
           <Link href="/demo" className="transition-colors hover:text-text">
             Demo
           </Link>
-          <a href="mailto:hello@69.studio" className="transition-colors hover:text-text">
+          <a href="mailto:sales@dataday.studio" className="transition-colors hover:text-text">
             Contact
           </a>
         </nav>
@@ -684,11 +684,13 @@ function Footer() {
         </p>
         <p className="mt-2">
           <a
-            href="https://69.studio"
+            href="https://dataday.studio"
             className="underline decoration-line underline-offset-2 transition-colors hover:text-accent"
           >
-            A 69.studio project
+            a dataday.studio project
           </a>
+          <span className="px-1.5">·</span>
+          Designed in Rockwall, TX
         </p>
       </div>
     </footer>
