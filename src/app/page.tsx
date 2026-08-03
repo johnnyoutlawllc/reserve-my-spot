@@ -630,12 +630,12 @@ function Pilot() {
           station counts, your hours, your rules for who gets bumped. Tell us how your line works today.
         </p>
         <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
-          <a
-            href="mailto:sales@dataday.studio?subject=Reserve%20My%20Spot"
+          <Link
+            href="/contact"
             className="inline-flex h-12 items-center rounded-2xl bg-accent px-6 text-[15px] font-semibold text-ink transition-colors hover:bg-accent/90"
           >
             Start a conversation
-          </a>
+          </Link>
           <Link
             href="/demo"
             className="inline-flex h-12 items-center rounded-2xl border border-line bg-surface-2 px-6 text-[15px] font-medium transition-colors hover:border-faint"
@@ -671,9 +671,9 @@ function Footer() {
           <Link href="/demo" className="transition-colors hover:text-text">
             Demo
           </Link>
-          <a href="mailto:sales@dataday.studio" className="transition-colors hover:text-text">
+          <Link href="/contact" className="transition-colors hover:text-text">
             Contact
-          </a>
+          </Link>
         </nav>
       </div>
       <div className="mx-auto max-w-6xl px-5 pb-10 text-[12px] leading-relaxed text-faint">
