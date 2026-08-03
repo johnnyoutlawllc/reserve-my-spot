@@ -6,7 +6,7 @@ import { ADD_ON, FOUNDING, GO_LIVE, INCLUDED, PLANS, SERVICES, TERMS } from '@/l
 export const metadata = {
   title: 'Pricing',
   description:
-    'Reserve My Spot pricing, per location and per month. $329 for a single location, $289 each for two to five, $249 each for six to twenty, and a conversation past that. Every plan is the whole product.',
+    'Reserve My Spot pricing, per location and per month. $189 for a single location, $159 each for two to five, $129 each for six to twenty, and a conversation past that. Every plan is the whole product.',
 };
 
 export default function PricingPage() {
@@ -122,7 +122,7 @@ function Included() {
       </h2>
       <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-muted">
         Plenty of software puts the one feature you came for behind the top tier. The live drive tracking is
-        the whole reason this exists, so it is in the single-location plan at $329 the same as it is in the
+        the whole reason this exists, so it is in the single-location plan at $189 the same as it is in the
         twenty-location one. You are not buying features here, you are buying seats at the counter.
       </p>
 

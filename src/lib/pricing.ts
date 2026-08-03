@@ -28,12 +28,24 @@
  * strategy. Do not reintroduce feature tiers. If a number has to move, move the
  * per-location rate.
  *
- * ETA_ALLOWANCE is the one number here with a hard cost behind it. Every tracked
- * arrival is a run of routing API calls, so the allowance and the refresh
- * cadence in the app have to be set together: a 60-second refresh over a
- * fifteen-minute drive is roughly fifteen billable calls per arrival, and a busy
- * location can put real money through it. Widen the refresh interval before
- * widening this number.
+ * ON THE COST OF A LOCATION, because it decides whether the entry rate works.
+ * The marginal cost of one more location is close to a dollar a month. Supabase
+ * Pro ($25/mo) and Vercel Pro ($20/mo) are shared across every project, a
+ * location writes on the order of 1,500 rows a month, and the only thing that
+ * scales per location is realtime connections: roughly 20 to 30 concurrent at
+ * peak against Pro's 500, so about fifteen locations before an add-on is needed.
+ *
+ * The driving ETA costs nothing. It is computed in `lib/geo.ts` from a haversine
+ * straight-line distance and a fixed speed table, not from a routing API, so
+ * there is no metered mapping service behind it and no allowance to publish. A
+ * previous version of this file claimed one. If a real routing provider is ever
+ * wired in, that changes and this comment has to change with it.
+ *
+ * So the real cost of a location is support hours, not servers. At $189 and a
+ * notional $100 an hour, a location breaks even somewhere near 1.8 hours of
+ * support a month. That is the number to watch when deciding whether the entry
+ * rate is too low, and it is why the admin console and the in-app FAQ are
+ * commercial features and not just nice ones.
  */
 
 export type Plan = {
@@ -56,7 +68,7 @@ export const PLANS: Plan[] = [
     id: 'single',
     name: 'Single location',
     range: 'One location',
-    price: '$329',
+    price: '$189',
     per: 'per month',
     copy: 'One spa, one front desk, the whole product. Most of the places we talk to start here and never need anything else.',
   },
@@ -64,19 +76,19 @@ export const PLANS: Plan[] = [
     id: 'few',
     name: 'Two to five locations',
     range: '2 to 5 locations',
-    price: '$289',
+    price: '$159',
     per: 'per location, per month',
     copy: 'Each location runs its own board with its own services and hours, and you get one view across all of them.',
-    saving: '$40 a location off the single rate',
+    saving: '$30 a location off the single rate',
   },
   {
     id: 'many',
     name: 'Six to twenty locations',
     range: '6 to 20 locations',
-    price: '$249',
+    price: '$129',
     per: 'per location, per month',
     copy: 'Set up a service menu once and push it everywhere, or let each location keep its own. Regional rollups and per-location reporting come standard.',
-    saving: '$80 a location off the single rate',
+    saving: '$60 a location off the single rate',
   },
   {
     id: 'more',
@@ -151,11 +163,8 @@ export const ADD_ON = {
 /** Deliberately the lowest published number on the page. */
 export const FOUNDING = {
   head: 'Founding location rate',
-  body: 'We take on a small number of locations at a time. The first five lock $249 a month for twenty-four months. That is the rate a twenty-location chain pays, on one location, and it holds through both renewals.',
+  body: 'We take on a small number of locations at a time. The first five lock $129 a month for twenty-four months. That is the rate a twenty-location chain pays, on one location, and it holds through both renewals.',
 };
-
-/** Tracked arrivals included, per location, per month. */
-export const ETA_ALLOWANCE = '1,500 tracked arrivals a month, per location';
 
 /**
  * Reproduced from dataday.studio. Do not reword, rename, or reprice these here.
@@ -209,6 +218,6 @@ export const TERMS = [
   },
   {
     b: 'Vendor costs at cost plus 20%',
-    t: 'Live driving ETAs use a metered mapping service, so every plan includes 1,500 tracked arrivals a month per location. That is fifty a day, and a normal location does not come close. Past it, or for any other platform a job needs, we set it up in accounts that belong to you and pass the cost through with a flat, itemized 20 percent on top for managing it. You see the number before anything gets switched on, and we tell you when you are trending toward it rather than after.',
+    t: 'Everything the app does today runs inside what your plan already covers, drive tracking included. Once in a while a job needs a platform beyond that: text messaging, heavy storage, a metered outside service, a premium tier your location needs. When it does, we talk it through and try to find a way around it. If there is no way around it, we set it up in accounts that belong to you and pass the cost through with a flat, itemized 20 percent on top for managing it. You see the number before anything gets switched on.',
   },
 ];

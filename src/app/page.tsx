@@ -596,7 +596,7 @@ function Pilot() {
           </Link>
         </div>
         <p className="mt-5 text-[13px] text-faint">
-          $329 a month for a single location, less per location as you grow. Every number is published.
+          $189 a month for a single location, less per location as you grow. Every number is published.
         </p>
       </div>
     </section>
