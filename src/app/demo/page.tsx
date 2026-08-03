@@ -2,8 +2,7 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useMemo, useState } from 'react';
-import { Badge, Button, Card, Spinner } from '@/components/ui';
+import { Badge, Button, Card } from '@/components/ui';
 import { useLiveTable } from '@/lib/db';
 import { useSession } from '@/lib/session';
 import type { Member, Service, Settings, Staff } from '@/lib/types';
@@ -65,31 +64,30 @@ const LANES: {
 export default function LandingPage() {
   const router = useRouter();
   const { signIn, signOut, member: signedInMember, staff: signedInStaff } = useSession();
-  const [lane, setLane] = useState<Lane | null>(null);
 
-  const { rows: members, loading: loadingMembers } = useLiveTable<Member>('rms_members', {
+  const { rows: members } = useLiveTable<Member>('rms_members', {
     order: { column: 'full_name' },
   });
-  const { rows: staff, loading: loadingStaff } = useLiveTable<Staff>('rms_staff', {
+  const { rows: staff } = useLiveTable<Staff>('rms_staff', {
     order: { column: 'full_name' },
   });
   const { rows: services } = useLiveTable<Service>('rms_services', { order: { column: 'sort_order' } });
   const { rows: settingsRows } = useLiveTable<Settings>('rms_settings');
   const settings = settingsRows[0];
 
-  const picks = useMemo<(Member | Staff)[]>(() => {
-    if (lane === 'member') return members;
-    if (lane === 'support') return staff.filter((s) => s.role === 'support');
-    if (lane === 'admin') return staff.filter((s) => s.role === 'admin');
-    return [];
-  }, [lane, members, staff]);
+  // Pick a sensible default identity per lane so the buttons drop you straight
+  // into the app. You can swap to anyone else from the switcher in the top bar.
+  function defaultFor(lane: Lane): Member | Staff | undefined {
+    if (lane === 'member') return members.find((m) => m.is_active) ?? members[0];
+    if (lane === 'support') return staff.find((s) => s.role === 'support');
+    return staff.find((s) => s.role === 'admin');
+  }
 
-  const activeLane = LANES.find((l) => l.key === lane) ?? null;
-
-  function choose(id: string) {
-    if (!activeLane) return;
-    signIn({ kind: activeLane.key === 'member' ? 'member' : 'staff', id });
-    router.push(activeLane.href);
+  function enter(l: (typeof LANES)[number]) {
+    const pick = defaultFor(l.key);
+    if (!pick) return; // data still loading; the button is disabled until it lands
+    signIn({ kind: l.key === 'member' ? 'member' : 'staff', id: pick.id });
+    router.push(l.href);
   }
 
   return (
@@ -160,73 +158,31 @@ export default function LandingPage() {
         ) : null}
 
         <div className="mt-5 grid gap-4 lg:grid-cols-3">
-          {LANES.map((l) => (
-            <Card key={l.key} className="flex flex-col p-5">
-              <div className="flex size-10 items-center justify-center rounded-xl border border-accent/25 bg-accent-wash text-accent">
-                {l.icon}
-              </div>
-              <h3 className="mt-4 text-base font-semibold tracking-tight">{l.title}</h3>
-              <p className="mt-2 grow text-[13px] leading-relaxed text-muted">{l.blurb}</p>
-              <Button variant="primary" className="mt-5" onClick={() => setLane(l.key)}>
-                {l.cta}
-              </Button>
-            </Card>
-          ))}
+          {LANES.map((l) => {
+            const ready = Boolean(defaultFor(l.key));
+            return (
+              <Card key={l.key} className="flex flex-col p-5">
+                <div className="flex size-10 items-center justify-center rounded-xl border border-accent/25 bg-accent-wash text-accent">
+                  {l.icon}
+                </div>
+                <h3 className="mt-4 text-base font-semibold tracking-tight">{l.title}</h3>
+                <p className="mt-2 grow text-[13px] leading-relaxed text-muted">{l.blurb}</p>
+                <Button
+                  variant="primary"
+                  className="mt-5"
+                  disabled={!ready}
+                  onClick={() => enter(l)}
+                >
+                  {ready ? l.cta : 'Loading…'}
+                </Button>
+              </Card>
+            );
+          })}
         </div>
+        <p className="mt-3 text-xs text-faint">
+          You drop straight in as a seeded identity. Switch to anyone else from the menu in the top bar.
+        </p>
       </section>
-
-      {activeLane ? (
-        <section className="rms-rise mt-8">
-          <Card className="p-5">
-            <div className="flex items-center justify-between gap-3">
-              <div>
-                <h3 className="text-sm font-semibold tracking-tight">Sign in: {activeLane.title}</h3>
-                <p className="mt-1 text-xs text-faint">
-                  No passwords in the demo. Pick an identity and you’re in.
-                </p>
-              </div>
-              <Button variant="ghost" size="sm" onClick={() => setLane(null)}>
-                Cancel
-              </Button>
-            </div>
-
-            {loadingMembers || loadingStaff ? (
-              <Spinner />
-            ) : picks.length === 0 ? (
-              <p className="mt-5 text-sm text-faint">No accounts for this role yet.</p>
-            ) : (
-              <ul className="mt-4 grid gap-2 sm:grid-cols-2">
-                {picks.map((p) => {
-                  const member = 'tier' in p ? (p as Member) : null;
-                  return (
-                    <li key={p.id}>
-                      <button
-                        onClick={() => choose(p.id)}
-                        className="flex w-full items-center gap-3 rounded-xl border border-line bg-surface-2 px-3 py-2.5 text-left transition-colors hover:border-accent/40 hover:bg-accent-wash/40"
-                      >
-                        <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-line text-[11px] font-semibold text-muted">
-                          {initials(p.full_name)}
-                        </span>
-                        <span className="min-w-0">
-                          <span className="block truncate text-sm font-medium">{p.full_name}</span>
-                          <span className="block truncate text-[11px] text-faint">{p.email}</span>
-                        </span>
-                        {member ? (
-                          <span className="ml-auto shrink-0">
-                            <Badge tone={member.is_active ? 'accent' : 'alert'}>
-                              {member.is_active ? member.tier : 'inactive'}
-                            </Badge>
-                          </span>
-                        ) : null}
-                      </button>
-                    </li>
-                  );
-                })}
-              </ul>
-            )}
-          </Card>
-        </section>
-      ) : null}
 
       <footer className="mt-14 border-t border-line-soft pt-6 text-xs leading-relaxed text-faint">
         <p>
@@ -268,12 +224,4 @@ function SignedInChip({
       </button>
     </span>
   );
-}
-
-function initials(name: string) {
-  return name
-    .split(/\s+/)
-    .slice(0, 2)
-    .map((p) => p[0]?.toUpperCase() ?? '')
-    .join('');
 }

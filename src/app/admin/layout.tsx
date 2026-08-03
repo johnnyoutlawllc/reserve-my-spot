@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { Banner, Button, Spinner } from '@/components/ui';
+import { IdentitySwitcher } from '@/components/IdentitySwitcher';
 import { useSession } from '@/lib/session';
 import { SpaProvider, useSpa } from '@/lib/spa';
 
@@ -53,7 +54,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 }
 
 function Shell({ children }: { children: React.ReactNode }) {
-  const { staff, signOut } = useSession();
+  const { signOut } = useSession();
   const { settings } = useSpa();
   const pathname = usePathname();
 
@@ -75,10 +76,7 @@ function Shell({ children }: { children: React.ReactNode }) {
             >
               Front desk
             </Link>
-            <span className="hidden text-right sm:block">
-              <span className="block text-[13px] font-medium leading-tight">{staff?.full_name}</span>
-              <span className="block text-[10px] uppercase tracking-wider text-faint">admin</span>
-            </span>
+            <IdentitySwitcher kind="staff" />
             <button
               onClick={() => signOut('staff')}
               className="rounded-lg border border-line px-2.5 py-1.5 text-[11px] text-muted hover:border-faint hover:text-text"

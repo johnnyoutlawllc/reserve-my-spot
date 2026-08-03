@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { Button, Spinner } from '@/components/ui';
+import { IdentitySwitcher } from '@/components/IdentitySwitcher';
 import { useLiveTable } from '@/lib/db';
 import { useSession } from '@/lib/session';
 import { SpaProvider, useSpa } from '@/lib/spa';
@@ -78,7 +79,7 @@ const TABS = [
 
 function Shell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const { member, signOut } = useSession();
+  const { member } = useSession();
   const { settings } = useSpa();
   const { rows: waitlist } = useLiveTable<WaitlistEntry>('rms_waitlist');
   const { rows: threads } = useLiveTable<ChatThread>('rms_chat_threads');
@@ -102,12 +103,7 @@ function Shell({ children }: { children: React.ReactNode }) {
               Hi, {member?.full_name.split(' ')[0]}
             </p>
           </div>
-          <button
-            onClick={() => signOut('member')}
-            className="shrink-0 rounded-lg border border-line px-2.5 py-1.5 text-[11px] text-muted hover:border-faint hover:text-text"
-          >
-            Switch user
-          </button>
+          <IdentitySwitcher kind="member" className="shrink-0" />
         </div>
       </header>
 

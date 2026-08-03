@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { Badge, Button, Spinner } from '@/components/ui';
+import { IdentitySwitcher } from '@/components/IdentitySwitcher';
 import { useLiveTable } from '@/lib/db';
 import { useSession } from '@/lib/session';
 import { SpaProvider, useSpa } from '@/lib/spa';
@@ -87,10 +88,7 @@ function Shell({ children }: { children: React.ReactNode }) {
                 Admin
               </Link>
             ) : null}
-            <span className="hidden text-right sm:block">
-              <span className="block text-[13px] font-medium leading-tight">{staff?.full_name}</span>
-              <span className="block text-[10px] uppercase tracking-wider text-faint">{staff?.role}</span>
-            </span>
+            <IdentitySwitcher kind="staff" />
             <button
               onClick={() => signOut('staff')}
               className="rounded-lg border border-line px-2.5 py-1.5 text-[11px] text-muted hover:border-faint hover:text-text"
