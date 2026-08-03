@@ -583,12 +583,21 @@ function Pilot() {
             Start a conversation
           </Link>
           <Link
+            href="/pricing"
+            className="inline-flex h-12 items-center rounded-2xl border border-line bg-surface-2 px-6 text-[15px] font-medium transition-colors hover:border-faint"
+          >
+            See pricing
+          </Link>
+          <Link
             href="/demo"
             className="inline-flex h-12 items-center rounded-2xl border border-line bg-surface-2 px-6 text-[15px] font-medium transition-colors hover:border-faint"
           >
             See the demo first
           </Link>
         </div>
+        <p className="mt-5 text-[13px] text-faint">
+          $329 a month for a single location, less per location as you grow. Every number is published.
+        </p>
       </div>
     </section>
   );

@@ -10,6 +10,7 @@ import { Mark } from '@/components/SiteHeader';
 const LINKS = [
   { href: '/#how', label: 'How it works' },
   { href: '/#features', label: 'Features' },
+  { href: '/pricing', label: 'Pricing' },
   { href: '/demo', label: 'Demo' },
   { href: '/contact', label: 'Contact' },
 ];

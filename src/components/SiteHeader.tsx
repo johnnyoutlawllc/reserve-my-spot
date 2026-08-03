@@ -4,10 +4,12 @@ import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { useAuth } from '@/lib/auth';
 
+/* Absolute so the header works from /pricing and /contact, not just the home page. */
 const NAV = [
-  { href: '#how', label: 'How it works' },
-  { href: '#features', label: 'Features' },
-  { href: '#services', label: 'Services' },
+  { href: '/#how', label: 'How it works' },
+  { href: '/#features', label: 'Features' },
+  { href: '/#services', label: 'Services' },
+  { href: '/pricing', label: 'Pricing' },
 ];
 
 export function SiteHeader() {
@@ -34,13 +36,13 @@ export function SiteHeader() {
 
         <nav className="ml-2 hidden items-center gap-6 lg:flex">
           {NAV.map((n) => (
-            <a
+            <Link
               key={n.href}
               href={n.href}
               className="text-[13px] text-muted transition-colors hover:text-text"
             >
               {n.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
