@@ -76,7 +76,8 @@ export const INCLUDED: { group: string; items: string[] }[] = [
       'Reservations land on the board the moment a member makes one',
       'Live driving ETA, refreshed as they move',
       'Every station on one board, with who is in it and who is next',
-      'Call up, start, complete, and release, all from the board',
+      'Call up, start, complete, no show, bump back, and release, all from the board',
+      'Two-way chat with members, with saved quick replies for the common questions',
     ],
   },
   {
@@ -90,9 +91,9 @@ export const INCLUDED: { group: string; items: string[] }[] = [
   },
 ];
 
-/** Running more than one location. Kept short on purpose. */
+/** Bulk pricing kicks in at five or more locations. Kept short on purpose. */
 export const MULTI =
-  'Running more than one location? The monthly rate comes down. Tell us how many you run and we will send back a quote.';
+  'Running more than 5 locations? Bulk pricing available. Let us talk.';
 
 /** Our commitments, in plain words. Same terms, same policy. */
 export const TERMS = [

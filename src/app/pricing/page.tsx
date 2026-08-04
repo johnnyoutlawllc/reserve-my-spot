@@ -176,14 +176,7 @@ function Cta() {
   return (
     <section className="mx-auto max-w-6xl px-5 py-24">
       <div className="rounded-3xl border border-line bg-surface p-8 text-center sm:p-12">
-        <h2 className="text-[clamp(1.6rem,3.4vw,2.25rem)] font-semibold leading-tight tracking-tight">
-          Tell us how your line works today.
-        </h2>
-        <p className="mx-auto mt-3 max-w-xl text-[15px] leading-relaxed text-muted">
-          Send over what you run, how many stations each service has, and whether you want us to connect to
-          your booking software. We will come back with the plan that fits and what the first month costs.
-        </p>
-        <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
+        <div className="flex flex-wrap items-center justify-center gap-3">
           <Link
             href="/contact"
             className="inline-flex h-12 items-center rounded-2xl bg-accent px-6 text-[15px] font-semibold text-ink transition-colors hover:bg-accent/90"
