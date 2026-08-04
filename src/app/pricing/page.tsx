@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { SiteHeader } from '@/components/SiteHeader';
 import { SiteFooter } from '@/components/SiteFooter';
-import { INCLUDED, MULTI, PLANS, TERMS } from '@/lib/pricing';
+import { INCLUDED, MULTI, PLANS, UPGRADES } from '@/lib/pricing';
 
 export const metadata = {
   title: 'Pricing',
@@ -26,7 +26,7 @@ export default function PricingPage() {
         <Hero />
         <Plans />
         <Included />
-        <Terms />
+        <Upgrades />
         <Cta />
       </main>
 
@@ -126,9 +126,7 @@ function Plans() {
 function Included() {
   return (
     <section className="mx-auto max-w-6xl px-5 py-16">
-      <SectionHead eyebrow="In both plans" title="The member app, the front desk board, and the admin console.">
-        Nothing is held back for a higher plan. Both plans get all of it, branded for your spa.
-      </SectionHead>
+      <SectionHead eyebrow="In both plans" title="The member app, the front desk board, and the admin console." />
 
       <div className="mt-10 grid gap-4 lg:grid-cols-3">
         {INCLUDED.map((g) => (
@@ -149,22 +147,36 @@ function Included() {
   );
 }
 
-/* -------------------------------------------------------------------- terms */
+/* ----------------------------------------------------------------- upgrades */
 
-function Terms() {
+function Upgrades() {
   return (
     <section className="border-y border-line-soft bg-shell/40 py-16">
       <div className="mx-auto max-w-6xl px-5">
-        <SectionHead eyebrow="What you are signing" title="The terms, in plain words, before anybody sends a contract." />
+        <SectionHead
+          eyebrow="Past setup"
+          title="Want more changed than setup covers? Build time on a schedule."
+        >
+          Both run at the same $100-an-hour rate as setup, just spread across a standing meeting instead of a
+          one-time push.
+        </SectionHead>
 
-        <dl className="mt-8 grid gap-4 sm:grid-cols-3">
-          {TERMS.map((t) => (
-            <div key={t.b} className="rounded-3xl border border-line bg-surface p-6">
-              <dt className="text-[14.5px] font-semibold tracking-tight">{t.b}</dt>
-              <dd className="mt-2.5 text-[13.5px] leading-relaxed text-muted">{t.t}</dd>
+        <div className="mt-8 grid gap-4 sm:grid-cols-2">
+          {UPGRADES.map((u) => (
+            <div key={u.name} className="rounded-3xl border border-line bg-surface p-6">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">{u.name}</p>
+              <p className="mt-3 flex items-baseline gap-2">
+                <span className="text-[clamp(1.6rem,3vw,2rem)] font-semibold leading-none tracking-tight">
+                  {u.price}
+                </span>
+                <span className="text-[13px] text-faint">{u.per}</span>
+              </p>
+              <p className="mt-4 border-t border-line-soft pt-4 text-[13.5px] leading-relaxed text-muted">
+                {u.copy}
+              </p>
             </div>
           ))}
-        </dl>
+        </div>
       </div>
     </section>
   );
@@ -175,7 +187,7 @@ function Terms() {
 function Cta() {
   return (
     <section className="mx-auto max-w-6xl px-5 py-24">
-      <div className="rounded-3xl border border-line bg-surface p-8 text-center sm:p-12">
+      <div className="rounded-3xl bg-surface p-8 text-center sm:p-12">
         <div className="flex flex-wrap items-center justify-center gap-3">
           <Link
             href="/contact"
@@ -185,9 +197,9 @@ function Cta() {
           </Link>
           <Link
             href="/demo"
-            className="inline-flex h-12 items-center rounded-2xl border border-line bg-surface-2 px-6 text-[15px] font-medium transition-colors hover:border-faint"
+            className="inline-flex h-12 items-center rounded-2xl bg-surface-2 px-6 text-[15px] font-medium transition-colors hover:bg-surface"
           >
-            See the demo first
+            See the demo
           </Link>
         </div>
       </div>

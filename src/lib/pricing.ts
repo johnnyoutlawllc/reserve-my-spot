@@ -93,20 +93,24 @@ export const INCLUDED: { group: string; items: string[] }[] = [
 
 /** Bulk pricing kicks in at five or more locations. Kept short on purpose. */
 export const MULTI =
-  'Running more than 5 locations? Bulk pricing available. Let us talk.';
+  "Running more than 5 locations? Bulk pricing available. Let's talk.";
 
-/** Our commitments, in plain words. Same terms, same policy. */
-export const TERMS = [
+/**
+ * Ongoing build time past setup, mirrored from dataday.studio's own two
+ * cheapest rungs (Quarterly Upgrades, Monthly Upgrades): same $500 price,
+ * same 4-hour allotment, same $100/hr baseline, reworded for a spa audience.
+ */
+export const UPGRADES = [
   {
-    b: 'Twelve months from go-live',
-    t: 'The term starts the day your location opens to members, and renews each year after that. Thirty days notice ahead of a renewal stops the next one.',
+    name: 'Quarterly Upgrades',
+    price: '$500',
+    per: 'per quarter',
+    copy: "Four hours a quarter for changes to your setup: a new service, a station count that no longer matches your floor, copy that isn't landing. We meet once a quarter to talk through what's next.",
   },
   {
-    b: 'Bug fixes at no charge',
-    t: 'If it stops doing what it was built to do, we fix it and nobody’s hours get spent on it.',
-  },
-  {
-    b: 'Your data is yours',
-    t: 'Members, sessions, and history leave with you whenever you want them, and we hold a copy for ninety days after you go.',
+    name: 'Monthly Upgrades',
+    price: '$500',
+    per: 'per month',
+    copy: 'Four hours every month for the same kind of work, on a faster clock. A standing monthly check-in keeps that time pointed at what matters most.',
   },
 ];
