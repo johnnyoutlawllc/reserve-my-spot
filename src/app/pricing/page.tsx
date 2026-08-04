@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import { Mark, SiteHeader } from '@/components/SiteHeader';
+import { SiteHeader } from '@/components/SiteHeader';
 import { SiteFooter } from '@/components/SiteFooter';
-import { CONNECT, FOUNDING, GO_LIVE, INCLUDED, PRICE, TERMS } from '@/lib/pricing';
+import { CONNECT, GO_LIVE, INCLUDED, PRICE, TERMS } from '@/lib/pricing';
 
 export const metadata = {
   title: 'Pricing',
@@ -28,7 +28,6 @@ export default function PricingPage() {
         <Included />
         <GoLive />
         <Connect />
-        <Founding />
         <Terms />
         <CrossLink />
         <Cta />
@@ -44,22 +43,26 @@ export default function PricingPage() {
 function Hero() {
   return (
     <section className="mx-auto max-w-6xl px-5 pb-12 pt-10 sm:pt-16">
-      <div className="max-w-2xl">
-        <Eyebrow>Pricing</Eyebrow>
-        <h1 className="mt-4 text-[clamp(2.1rem,5.2vw,3.25rem)] font-semibold leading-[1.05] tracking-[-0.03em]">
-          One price, one product, and it is the whole thing.
-        </h1>
-        <p className="mt-5 text-[16px] leading-relaxed text-muted">
-          A location is {PRICE.monthly} a month, and that buys everything: the app your members use, the board
-          the front desk works from, the admin console your office runs it all through, and the drive tracking
-          that makes any of it worth having. No cheaper version is missing a piece.
-        </p>
-        <p className="mt-4 text-[14px] leading-relaxed text-faint">
-          Nothing here is billed per message, so a busy Saturday leaves your bill exactly where it was, and we
-          do not run a free tier because the demo already does what one would. Two things sit outside the
-          price and cost extra, and both are further down this page: putting it on your own domain, and
-          connecting it to the salon software you already run.
-        </p>
+      <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 lg:items-end">
+        <div>
+          <Eyebrow>Pricing</Eyebrow>
+          <h1 className="mt-4 text-[clamp(2.1rem,5.2vw,3.25rem)] font-semibold leading-[1.05] tracking-[-0.03em]">
+            One price, one product, and it is the whole thing.
+          </h1>
+        </div>
+        <div className="space-y-4">
+          <p className="text-[16px] leading-relaxed text-muted">
+            A location is {PRICE.monthly} a month. That covers the app your members use, the board the front
+            desk works from, the admin console your office runs it through, and the drive tracking. Everything
+            is included.
+          </p>
+          <p className="text-[14px] leading-relaxed text-faint">
+            Nothing is billed per message, so a busy Saturday leaves your bill where it was, and there is no
+            free tier because the demo already does what one would. Two things sit outside the price: putting
+            it on your own domain, and connecting it to the salon software you already run. Both are further
+            down the page.
+          </p>
+        </div>
       </div>
     </section>
   );
@@ -111,14 +114,9 @@ function Price() {
 function Included() {
   return (
     <section className="mx-auto max-w-6xl px-5 py-16">
-      <Eyebrow>What the price buys</Eyebrow>
-      <h2 className="mt-3 max-w-2xl text-[clamp(1.5rem,3.2vw,2.1rem)] font-semibold leading-tight tracking-tight">
-        Every part of it, in the one price.
-      </h2>
-      <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-muted">
-        Drive tracking is the reason this product exists, so it is in the {PRICE.monthly} the same as
-        everything else. There is no tier that holds a piece of it back.
-      </p>
+      <SectionHead eyebrow="What the price buys" title="Every part of it, in the one price.">
+        Drive tracking is included, the same as everything else. Nothing is held back for a higher tier.
+      </SectionHead>
 
       <div className="mt-10 grid gap-4 lg:grid-cols-3">
         {INCLUDED.map((g) => (
@@ -145,16 +143,15 @@ function GoLive() {
   return (
     <section className="border-y border-line-soft bg-shell/40 py-16">
       <div className="mx-auto max-w-6xl px-5">
-        <Eyebrow>One time, to go live</Eyebrow>
-        <h2 className="mt-3 max-w-2xl text-[clamp(1.5rem,3.2vw,2.1rem)] font-semibold leading-tight tracking-tight">
-          Setting your spa up is its own piece of work, and we bill it once.
-        </h2>
-        <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-muted">
-          We sit down with you and work out the service menu, how long a session runs on each one, how many
-          stations you have, when you open, and what happens to a member who misses their window. Then we
-          load your membership list and train the desk. The charge lands the day you open it to members,
-          which is the day your monthly bill starts too. Pick where it runs.
-        </p>
+        <SectionHead
+          eyebrow="One time, to go live"
+          title="Setting your spa up is its own piece of work, and we bill it once."
+        >
+          We work out the service menu with you, how long a session runs on each one, how many stations you
+          have, when you open, and what happens when a member misses their window. Then we load your
+          membership list and train the desk. The charge lands the day you open to members, the same day your
+          monthly bill starts. Pick where it runs.
+        </SectionHead>
 
         <div className="mt-8 grid gap-4 sm:grid-cols-2">
           {GO_LIVE.map((g) => (
@@ -181,11 +178,9 @@ function GoLive() {
 function Connect() {
   return (
     <section className="mx-auto max-w-6xl px-5 py-16">
-      <Eyebrow>{CONNECT.eyebrow}</Eyebrow>
-      <h2 className="mt-3 max-w-2xl text-[clamp(1.5rem,3.2vw,2.1rem)] font-semibold leading-tight tracking-tight">
-        {CONNECT.head}
-      </h2>
-      <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-muted">{CONNECT.copy}</p>
+      <SectionHead eyebrow={CONNECT.eyebrow} title={CONNECT.head}>
+        {CONNECT.copy}
+      </SectionHead>
 
       <div className="mt-10 grid gap-4 lg:grid-cols-[1.15fr_1fr]">
         <div className="relative overflow-hidden rounded-3xl border border-accent/25 bg-accent-wash/40 p-7 sm:p-8">
@@ -232,39 +227,12 @@ function Connect() {
   );
 }
 
-/* ----------------------------------------------------------------- founding */
-
-function Founding() {
-  return (
-    <section className="mx-auto max-w-6xl px-5 py-16">
-      <div className="flex flex-col gap-6 rounded-3xl border border-accent/30 bg-accent-wash/30 p-7 sm:flex-row sm:items-center sm:p-9">
-        <Mark className="size-11 shrink-0" />
-        <div className="flex-1">
-          <h2 className="text-[clamp(1.25rem,2.4vw,1.6rem)] font-semibold leading-snug tracking-tight">
-            {FOUNDING.head}
-          </h2>
-          <p className="mt-2.5 max-w-2xl text-[14.5px] leading-relaxed text-muted">{FOUNDING.body}</p>
-        </div>
-        <Link
-          href="/contact"
-          className="inline-flex h-11 shrink-0 items-center justify-center rounded-2xl bg-accent px-5 text-[14px] font-semibold text-ink transition-colors hover:bg-accent/90"
-        >
-          Ask about it
-        </Link>
-      </div>
-    </section>
-  );
-}
-
 /* -------------------------------------------------------------------- terms */
 
 function Terms() {
   return (
     <section className="mx-auto max-w-6xl px-5 py-16">
-      <Eyebrow>What you are signing</Eyebrow>
-      <h2 className="mt-3 max-w-2xl text-[clamp(1.5rem,3.2vw,2.1rem)] font-semibold leading-tight tracking-tight">
-        The terms, in plain words, before anybody sends a contract.
-      </h2>
+      <SectionHead eyebrow="What you are signing" title="The terms, in plain words, before anybody sends a contract." />
 
       <dl className="mt-8 grid gap-4 sm:grid-cols-2">
         {TERMS.map((t) => (
@@ -337,6 +305,28 @@ function Cta() {
 }
 
 /* ------------------------------------------------------------------- pieces */
+
+function SectionHead({
+  eyebrow,
+  title,
+  children,
+}: {
+  eyebrow: string;
+  title: string;
+  children?: React.ReactNode;
+}) {
+  return (
+    <div className="grid gap-4 lg:grid-cols-2 lg:gap-12 lg:items-end">
+      <div>
+        <Eyebrow>{eyebrow}</Eyebrow>
+        <h2 className="mt-3 text-[clamp(1.5rem,3.2vw,2.1rem)] font-semibold leading-tight tracking-tight">
+          {title}
+        </h2>
+      </div>
+      {children ? <p className="text-[15px] leading-relaxed text-muted lg:pb-1">{children}</p> : null}
+    </div>
+  );
+}
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">{children}</p>;

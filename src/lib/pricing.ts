@@ -60,9 +60,9 @@ export const PRICE = {
   monthly: '$189',
   per: 'per location, per month',
   annual: '$1,890',
-  annualNote: 'Pay for the year and you pay for ten months, so two are on us.',
+  annualNote: 'Pay for the year and you pay for ten months.',
   chains:
-    'Running more than one location? The rate comes down, and past a couple of stores the questions are about your POS, your franchise agreements and who owns the member list. That takes a real conversation, so tell us your count and we will quote it.',
+    'Running more than one location? The rate comes down. Tell us how many you run and we will send back a quote. Bigger groups usually have questions about their POS and who owns the member list, and we will sort those out with you.',
 };
 
 /** Everything below is in the price. There is no cheaper version missing any of it. */
@@ -71,7 +71,7 @@ export const INCLUDED: { group: string; items: string[] }[] = [
     group: 'The member app',
     items: [
       'Live waits for every service, read from home',
-      'A request that comes back with a place in line and an honest estimate',
+      'A request that comes back with a place in line and a time estimate',
       'Location sharing each member turns on for themselves',
       'Chat with whoever is working the front desk',
       'Profiles that carry favorites and history between visits',
@@ -176,40 +176,27 @@ export const CONNECT = {
   name: 'Connect it to the software you already run',
   price: '+$100',
   per: 'per location, per month',
-  allIn: 'That is $289 a month all in for a connected location.',
+  allIn: 'That is $289 a month for a connected location.',
   head: 'Stop typing the same member into two systems.',
-  copy: 'Your front desk already runs something that knows the member, the membership and which beds are lit right now. Left alone, our board and that one drift apart by the middle of a Saturday and your staff ends up trusting neither. Connected, we read yours, and the board stops being a second set of books somebody has to keep.',
+  copy: 'Your front desk already runs something that knows the member, the membership, and which beds are open right now. Without a connection, our board and that one can fall out of step. Connected, we read yours, so the desk is not keeping two sets of numbers.',
   items: [
-    'Equipment status read from the system already tracking it, not guessed at',
-    'A countdown off the real timer, cooldown and cleanup included, instead of an average',
-    'Members, memberships and remaining sessions stay in step on their own',
-    'Somebody who is not eligible today never gets offered a spot for today',
-    'We read. We never write back, so your system of record stays the record',
+    'Equipment status read from the system that already tracks it',
+    'A countdown from the actual timer, cooldown and cleanup included, not an average',
+    'Members, memberships, and remaining sessions stay in step',
+    'Someone who is not eligible today is never offered a spot',
+    'We only read. We never write back, so your system of record stays untouched',
   ],
   setup: {
     name: 'Connecting a location',
     price: '$500',
     per: 'one time, per location',
-    copy: 'The same $500 whether we have met your system before or not. Working out one we have not seen is our job, and we are not going to bill you extra for being the first spa to bring it to us. It covers getting read access sorted with your vendor, mapping your equipment list onto the board, and testing the whole thing against your live data before a single member sees it.',
+    copy: 'The same $500 whether we have worked with your system before or not. If we have not, that is on us to figure out, and we will not charge you more for being first. It covers getting read access from your vendor, mapping your equipment onto the board, and testing against your live data before any member sees it.',
   },
   /* Researched, not shipped. Read the note above before touching this list. */
   systems:
-    'The ones we come across most are SunLync, Tan-Link, SalonTouch Studio, Helios, Meevo, Envision and TanTrack, along with the T-Max timers sitting behind a good number of them. Tell us which one runs your desk and we will tell you exactly what comes across and what does not.',
+    'The systems we see most are SunLync, Tan-Link, SalonTouch Studio, Helios, Meevo, Envision, and TanTrack, plus the T-Max timers behind many of them. Tell us which one runs your desk and we will tell you what we can read and what we cannot.',
   caveat:
-    'How it goes. We deal with your software vendor so you do not have to, and you approve what we read before we read any of it. Some vendors move faster than others, and you will know where yours lands before you commit to anything.',
-};
-
-/*
- * FOUNDING. This used to print "$129 a month for twenty-four months" right next
- * to the $189 sticker, which made the sticker look negotiable and left a reader
- * reconciling two first-location prices on one page. An early rate is a
- * conversation and a limited cohort, not a permanent second ladder in print, so
- * the banner invites it without naming a competing number. The real rate gets
- * agreed in the conversation.
- */
-export const FOUNDING = {
-  head: 'Founding locations',
-  body: 'We are taking on a small first group of spas at a held rate that locks for the length of the term. It is a limited cohort and it is close to signed. If you want in, say so and we will talk numbers.',
+    'How it works. We deal with your software vendor so you do not have to, and you approve what we read before we read it. Some vendors are quicker to work with than others, and you will know where yours stands before you commit.',
 };
 
 /** DataDay's commitments, in DataDay's words. Same terms, same policy. */
