@@ -80,7 +80,9 @@ export function ContactForm() {
       <div className="mt-6">
         <label htmlFor="message" className="text-[13px] font-medium text-muted">
           How does your line work today?{' '}
-          <span className="text-faint">Which services do people end up waiting on?</span>
+          <span className="text-faint">
+            Which services do people end up waiting on, and what does the front desk run now?
+          </span>
         </label>
         <textarea
           id="message"

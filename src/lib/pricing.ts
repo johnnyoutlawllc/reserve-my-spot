@@ -162,6 +162,92 @@ export const ADD_ON = {
   copy: 'Your logo and your name on every screen a member touches. Goes with the $500 go-live fee.',
 };
 
+/*
+ * CONNECT: reading the salon software a spa already runs.
+ *
+ * WHAT IS AND IS NOT TRUE TODAY, because the copy has to stay inside it. As of
+ * August 2026 nothing here is built. We have no API credentials, no adapter, no
+ * partnership with any vendor, and no signed customer on it. What we have is
+ * research: SunLync publishes an open Webservices API with a developer hub at
+ * sandbox.sunlync.net, and Applied Digital lists eight salon packages that
+ * integrate with T-Max timers (ActiveSalon, Envision, Helios, Meevo, SalonTouch
+ * Studio, SunLync, Tan-Link, TanTrack), which is the addressable market.
+ *
+ * So the page sells a scoped engagement, not a shipped feature. The tone is
+ * confident and unhedged, because a spa needs to believe we can handle their POS
+ * and hedging reads as doubt. Confidence comes from being specific about the
+ * mechanics, which is what actually makes a reader think we have done this
+ * before. It must NOT come from claiming we have: no invented customer count, no
+ * "we have integrated dozens of salons", no named partnership or certification,
+ * no vendor logo. Those are checkable in one phone call and the deal dies on the
+ * spot. If a prospect rings SunLync, everything we published should still be
+ * true. Do not loosen this without an adapter actually running at a paying
+ * location.
+ *
+ * WHY +$100/MO, FLAT. Value first: at a location doing a hundred desk
+ * interactions a day, killing the double entry is on the order of 25 hours of
+ * desk labor a month, so $100 captures well under a third of what it saves and
+ * survives being questioned. It lands a single location at $289, which keeps the
+ * page on the ladder it already uses. It is NOT discounted at higher location
+ * counts, unlike the base rate: the base discount reflects setup and support that
+ * genuinely amortizes across a chain, and integration support does not, because
+ * every store has its own POS install, its own equipment list and its own
+ * network. Five connected locations is $500/mo, which is one Monthly Upgrades
+ * plan at DataDay, and that is deliberate. It is what funds the maintenance when
+ * a vendor ships a breaking change.
+ *
+ * WHY THERE IS A ONE-TIME FEE AT ALL. Without it the first adapter for a vendor
+ * is roughly forty hours of engineering recovered at $100/mo, which never pays
+ * back inside a term.
+ *
+ * WHY IT IS $500 FLAT AND NOT TIERED. It was briefly $500 for a system we could
+ * already reach and $1,500 for the first location on a new one. Johnny killed
+ * that on August 3, 2026, and he was right: a spa that signs before we support
+ * their POS is trusting us to work it out, and charging them triple for being
+ * first bills a customer for our own lack of coverage. We eat the adapter build
+ * and earn it back on every location after. It is also the better sales line,
+ * because the same number regardless of what they run is itself the proof that
+ * we are not afraid of their system, so the page says so out loud.
+ *
+ * This supersedes Rule 2 of the August 2026 pricing handoff, which routed
+ * integration work to DataDay's Monthly Upgrades. Building an adapter is still
+ * professional services. Keeping one alive is a subscription, and those are two
+ * different things that both have to get paid for.
+ *
+ * ON NOT WRITING BACK. We read. We do not create sessions, take payment or touch
+ * memberships in anyone's POS. That is a genuine engineering boundary and also
+ * the whole sales answer to "you are not touching my system of record", so it is
+ * on the page as a feature rather than buried as a limitation. Tanning session
+ * intervals and exposure limits are enforced in their POS for legal reasons and
+ * we are not going near them.
+ */
+export const CONNECT = {
+  eyebrow: 'Connected setup',
+  name: 'Connect it to the software you already run',
+  price: '+$100',
+  per: 'per location, per month',
+  head: 'Stop typing the same member into two systems.',
+  copy: 'Your front desk already runs something that knows the member, the membership and which beds are lit right now. Left alone, our board and that one drift apart by the middle of a Saturday and your staff ends up trusting neither. Connected, we read yours, and the board stops being a second set of books somebody has to keep.',
+  items: [
+    'Equipment status read from the system already tracking it, not guessed at',
+    'A countdown off the real timer, cooldown and cleanup included, instead of an average',
+    'Members, memberships and remaining sessions stay in step on their own',
+    'Somebody who is not eligible today never gets offered a spot for today',
+    'We read. We never write back, so your system of record stays the record',
+  ],
+  setup: {
+    name: 'Connecting a location',
+    price: '$500',
+    per: 'one time, per location',
+    copy: 'The same $500 whether we have met your system before or not. Working out one we have not seen is our job, and we are not going to bill you extra for being the first spa to bring it to us. It covers getting read access sorted with your vendor, mapping your equipment list onto the board, and testing the whole thing against your live data before a single member sees it.',
+  },
+  /* Researched, not shipped. Read the note above before touching this list. */
+  systems:
+    'The ones we come across most are SunLync, Tan-Link, SalonTouch Studio, Helios, Meevo, Envision and TanTrack, along with the T-Max timers sitting behind a good number of them. Tell us which one runs your desk and we will tell you exactly what comes across and what does not.',
+  caveat:
+    'How it goes. We deal with your software vendor so you do not have to, and you approve what we read before we read any of it. Some vendors move faster than others, and you will know where yours lands before you commit to anything.',
+};
+
 /** Deliberately the lowest published number on the page. */
 export const FOUNDING = {
   head: 'Founding location rate',

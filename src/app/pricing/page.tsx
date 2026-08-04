@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import { Mark, SiteHeader } from '@/components/SiteHeader';
 import { SiteFooter } from '@/components/SiteFooter';
-import { ADD_ON, FOUNDING, GO_LIVE, INCLUDED, PLANS, TERMS } from '@/lib/pricing';
+import { ADD_ON, CONNECT, FOUNDING, GO_LIVE, INCLUDED, PLANS, TERMS } from '@/lib/pricing';
 
 export const metadata = {
   title: 'Pricing',
   description:
-    'Reserve My Spot pricing, per location and per month. $189 for a single location, $159 each for two to five, $129 each for six to twenty, and a quote past that. Every plan is the whole product.',
+    'Reserve My Spot pricing, per location and per month. $189 for a single location, $159 each for two to five, $129 each for six to twenty, and a quote past that. Every plan is the whole product, and connecting it to the salon software you already run is $100 a location on top.',
 };
 
 export default function PricingPage() {
@@ -27,6 +27,7 @@ export default function PricingPage() {
         <Plans />
         <Included />
         <GoLive />
+        <Connect />
         <Founding />
         <Terms />
         <CrossLink />
@@ -56,7 +57,9 @@ function Hero() {
         <p className="mt-4 text-[14px] leading-relaxed text-faint">
           Pay annually and you pay for ten months instead of twelve. We do not run a free tier, because the
           demo already does what one would do, and nothing here is billed per message, so a busy Saturday
-          leaves your bill exactly where it was.
+          leaves your bill exactly where it was. Two things sit outside the plan and cost extra, and both are
+          further down this page: putting it on your own domain, and connecting it to the salon software you
+          already run.
         </p>
       </div>
     </section>
@@ -183,6 +186,64 @@ function GoLive() {
             <p className="mt-4 text-[13.5px] leading-relaxed text-muted">{ADD_ON.copy}</p>
           </div>
         </div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ connect */
+
+function Connect() {
+  return (
+    <section className="mx-auto max-w-6xl px-5 py-16">
+      <Eyebrow>{CONNECT.eyebrow}</Eyebrow>
+      <h2 className="mt-3 max-w-2xl text-[clamp(1.5rem,3.2vw,2.1rem)] font-semibold leading-tight tracking-tight">
+        {CONNECT.head}
+      </h2>
+      <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-muted">{CONNECT.copy}</p>
+
+      <div className="mt-10 grid gap-4 lg:grid-cols-[1.15fr_1fr]">
+        <div className="relative overflow-hidden rounded-3xl border border-accent/25 bg-accent-wash/40 p-7 sm:p-8">
+          <div className="pointer-events-none absolute -right-16 -top-16 size-64 rounded-full bg-accent/8 blur-3xl" />
+          <h3 className="text-[15px] font-semibold tracking-tight">{CONNECT.name}</h3>
+          <p className="mt-4 flex items-baseline gap-2">
+            <span className="text-[2.4rem] font-semibold leading-none tracking-tight">{CONNECT.price}</span>
+            <span className="text-[12.5px] text-faint">{CONNECT.per}</span>
+          </p>
+          <p className="mt-3 text-[12.5px] text-faint">
+            This one stays the same whether you run one location or twenty.
+          </p>
+          <ul className="mt-6 space-y-2.5 border-t border-line-soft pt-6">
+            {CONNECT.items.map((item) => (
+              <li key={item} className="flex items-start gap-2 text-[13.5px] leading-snug text-muted">
+                <Check />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="rounded-3xl border border-line bg-surface p-7 sm:p-8">
+          <h3 className="text-[15px] font-semibold tracking-tight">{CONNECT.setup.name}</h3>
+          <p className="mt-4 flex items-baseline gap-2">
+            <span className="text-[2.4rem] font-semibold leading-none tracking-tight">
+              {CONNECT.setup.price}
+            </span>
+            <span className="text-[12.5px] text-faint">{CONNECT.setup.per}</span>
+          </p>
+          <p className="mt-5 border-t border-line-soft pt-5 text-[13.5px] leading-relaxed text-muted">
+            {CONNECT.setup.copy}
+          </p>
+        </div>
+      </div>
+
+      <div className="mt-4 grid gap-4 lg:grid-cols-[1.15fr_1fr]">
+        <p className="rounded-3xl border border-line-soft bg-surface/50 p-6 text-[13.5px] leading-relaxed text-muted">
+          {CONNECT.systems}
+        </p>
+        <p className="rounded-3xl border border-line-soft bg-surface/50 p-6 text-[13.5px] leading-relaxed text-faint">
+          {CONNECT.caveat}
+        </p>
       </div>
     </section>
   );

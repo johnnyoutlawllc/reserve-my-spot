@@ -6,7 +6,7 @@ import { ServiceIcon } from '@/components/ServiceIcon';
 export const metadata = {
   title: 'Reserve My Spot · Hold your spot at the spa before you leave home',
   description:
-    'Spa members claim a spot for Red Light Therapy, the Wave bed or tanning from home. They share the drive over, and your front desk can see how far out each one really is.',
+    'Spa members claim a spot for Red Light Therapy, the Wave bed or tanning from home. They share the drive over, and your front desk can see how far out each one really is. It runs next to the salon software you already have, and can read from it.',
 };
 
 /* ------------------------------------------------------------------ content */
@@ -345,6 +345,17 @@ function Features() {
           }
         />
         <FeatureCard
+          title="It fits around your POS"
+          body="Nobody is asking you to replace what the front desk already runs. This sits alongside it and reads from it, so equipment status and memberships come straight across and your staff stops keeping two sets of books. We only ever read. Nothing writes back, and your system of record stays the record."
+          icon={
+            <>
+              <rect x="2.5" y="5" width="8.5" height="14" rx="2" />
+              <rect x="15" y="5" width="6.5" height="14" rx="2" />
+              <path d="M11.5 12h3" />
+            </>
+          }
+        />
+        <FeatureCard
           title="Honest wait times"
           body="An estimate runs your own session lengths and station counts forward through whoever is already in line. At four in the afternoon it still describes the room you actually have."
           icon={
@@ -599,7 +610,8 @@ function Pilot() {
           </Link>
         </div>
         <p className="mt-5 text-[13px] text-faint">
-          A single location is $189 a month, and the rate per location comes down as you add more.
+          A single location is $189 a month, and the rate per location comes down as you add more. Wiring it
+          into the salon software you already run is $100 a location on top of that.
         </p>
       </div>
     </section>
