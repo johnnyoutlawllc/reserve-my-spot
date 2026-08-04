@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import { SiteHeader } from '@/components/SiteHeader';
 import { SiteFooter } from '@/components/SiteFooter';
-import { CONNECT, GO_LIVE, INCLUDED, PRICE, TERMS } from '@/lib/pricing';
+import { INCLUDED, MULTI, PLANS, TERMS } from '@/lib/pricing';
 
 export const metadata = {
   title: 'Pricing',
   description:
-    'Reserve My Spot is $189 per location, per month, and that is the whole product. One time to go live is $250 on our platform or $500 on your own domain. Connecting it to the salon software you already run is $100 a location on top.',
+    'Two plans. Without integration, $169 per location per month plus a $250 setup. With integration into your booking software, $250 per location per month plus a $500 setup. Both include the member app, the front desk board, and the admin console.',
 };
 
 export default function PricingPage() {
@@ -24,16 +24,13 @@ export default function PricingPage() {
 
       <main className="relative">
         <Hero />
-        <Price />
+        <Plans />
         <Included />
-        <GoLive />
-        <Connect />
         <Terms />
-        <CrossLink />
         <Cta />
       </main>
 
-      <SiteFooter note="Prices are per location, in US dollars. Pay annually and you pay for ten months." />
+      <SiteFooter note="Prices are per location, in US dollars." />
     </div>
   );
 }
@@ -42,25 +39,22 @@ export default function PricingPage() {
 
 function Hero() {
   return (
-    <section className="mx-auto max-w-6xl px-5 pb-12 pt-10 sm:pt-16">
+    <section className="mx-auto max-w-6xl px-5 pb-10 pt-10 sm:pt-16">
       <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 lg:items-end">
         <div>
           <Eyebrow>Pricing</Eyebrow>
           <h1 className="mt-4 text-[clamp(2.1rem,5.2vw,3.25rem)] font-semibold leading-[1.05] tracking-[-0.03em]">
-            One price, one product, and it is the whole thing.
+            Two plans. Pick whether we connect to your booking software.
           </h1>
         </div>
         <div className="space-y-4">
           <p className="text-[16px] leading-relaxed text-muted">
-            A location is {PRICE.monthly} a month. That covers the app your members use, the board the front
-            desk works from, the admin console your office runs it through, and the drive tracking. Everything
-            is included.
+            Either way, members reserve their spot before they leave home. The difference is what happens
+            next: your front desk books it, or your software books it on its own.
           </p>
           <p className="text-[14px] leading-relaxed text-faint">
-            Nothing is billed per message, so a busy Saturday leaves your bill where it was, and there is no
-            free tier because the demo already does what one would. Two things sit outside the price: putting
-            it on your own domain, and connecting it to the salon software you already run. Both are further
-            down the page.
+            Both plans are the whole product, branded for you. Nothing is billed per message, so a busy
+            Saturday leaves your bill where it was.
           </p>
         </div>
       </div>
@@ -68,43 +62,61 @@ function Hero() {
   );
 }
 
-/* -------------------------------------------------------------------- price */
+/* -------------------------------------------------------------------- plans */
 
-function Price() {
+function Plans() {
   return (
-    <section className="mx-auto max-w-6xl px-5 pb-4">
-      <div className="grid gap-4 lg:grid-cols-[1fr_1.1fr]">
-        <div className="relative overflow-hidden rounded-3xl border border-accent/30 bg-accent-wash/40 p-7 sm:p-9">
-          <div className="pointer-events-none absolute -right-16 -top-16 size-64 rounded-full bg-accent/8 blur-3xl" />
-          <h2 className="text-[15px] font-semibold tracking-tight">One location, everything in</h2>
-          <p className="mt-5 flex items-baseline gap-2">
-            <span className="text-[clamp(2.4rem,5vw,3.4rem)] font-semibold leading-none tracking-tight">
-              {PRICE.monthly}
-            </span>
-            <span className="text-[13px] text-faint">{PRICE.per}</span>
-          </p>
-          <p className="mt-4 text-[13.5px] leading-relaxed text-muted">
-            {PRICE.annual} a year if you pay up front. {PRICE.annualNote}
-          </p>
-          <Link
-            href="/contact"
-            className="mt-7 inline-flex h-11 items-center justify-center rounded-2xl bg-accent px-5 text-[14px] font-semibold text-ink transition-colors hover:bg-accent/90"
+    <section className="mx-auto max-w-6xl px-5">
+      <div className="grid gap-4 lg:grid-cols-2">
+        {PLANS.map((p) => (
+          <div
+            key={p.name}
+            className={
+              p.featured
+                ? 'relative overflow-hidden rounded-3xl border border-accent/30 bg-accent-wash/40 p-7 sm:p-9'
+                : 'relative overflow-hidden rounded-3xl border border-line bg-surface p-7 sm:p-9'
+            }
           >
-            Get started
-          </Link>
-        </div>
+            {p.featured ? (
+              <div className="pointer-events-none absolute -right-16 -top-16 size-64 rounded-full bg-accent/8 blur-3xl" />
+            ) : null}
 
-        <div className="flex flex-col justify-center rounded-3xl border border-line bg-surface p-7 sm:p-9">
-          <h2 className="text-[15px] font-semibold tracking-tight">More than one location</h2>
-          <p className="mt-4 text-[14.5px] leading-relaxed text-muted">{PRICE.chains}</p>
-          <Link
-            href="/contact"
-            className="mt-7 inline-flex h-11 w-fit items-center justify-center rounded-2xl border border-line bg-surface-2 px-5 text-[14px] font-semibold transition-colors hover:border-faint"
-          >
-            Start the conversation
-          </Link>
-        </div>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">{p.name}</p>
+            <h2 className="mt-3 text-[clamp(1.3rem,2.6vw,1.7rem)] font-semibold leading-snug tracking-tight">
+              {p.head}
+            </h2>
+
+            <p className="mt-6 flex items-baseline gap-2">
+              <span className="text-[clamp(2.2rem,4.6vw,3rem)] font-semibold leading-none tracking-tight">
+                {p.monthly}
+              </span>
+              <span className="text-[13px] text-faint">{p.per}</span>
+            </p>
+            <p className="mt-3 text-[13.5px] text-muted">
+              <span className="font-semibold text-fg">{p.setup}</span> {p.setupNote}
+            </p>
+
+            <p className="mt-5 border-t border-line-soft pt-5 text-[13.5px] leading-relaxed text-muted">
+              {p.copy}
+            </p>
+
+            <Link
+              href="/contact"
+              className={
+                p.featured
+                  ? 'mt-7 inline-flex h-11 items-center justify-center rounded-2xl bg-accent px-5 text-[14px] font-semibold text-ink transition-colors hover:bg-accent/90'
+                  : 'mt-7 inline-flex h-11 items-center justify-center rounded-2xl border border-line bg-surface-2 px-5 text-[14px] font-semibold transition-colors hover:border-faint'
+              }
+            >
+              Get started
+            </Link>
+          </div>
+        ))}
       </div>
+
+      <p className="mt-4 rounded-3xl border border-line-soft bg-surface/50 p-6 text-[13.5px] leading-relaxed text-muted">
+        {MULTI}
+      </p>
     </section>
   );
 }
@@ -114,8 +126,8 @@ function Price() {
 function Included() {
   return (
     <section className="mx-auto max-w-6xl px-5 py-16">
-      <SectionHead eyebrow="What the price buys" title="Every part of it, in the one price.">
-        Drive tracking is included, the same as everything else. Nothing is held back for a higher tier.
+      <SectionHead eyebrow="In both plans" title="The member app, the front desk board, and the admin console.">
+        Nothing is held back for a higher plan. Both plans get all of it, branded for your spa.
       </SectionHead>
 
       <div className="mt-10 grid gap-4 lg:grid-cols-3">
@@ -137,135 +149,22 @@ function Included() {
   );
 }
 
-/* ------------------------------------------------------------------ go live */
-
-function GoLive() {
-  return (
-    <section className="border-y border-line-soft bg-shell/40 py-16">
-      <div className="mx-auto max-w-6xl px-5">
-        <SectionHead
-          eyebrow="One time, to go live"
-          title="Setting your spa up is its own piece of work, and we bill it once."
-        >
-          We work out the service menu with you, how long a session runs on each one, how many stations you
-          have, when you open, and what happens when a member misses their window. Then we load your
-          membership list and train the desk. The charge lands the day you open to members, the same day your
-          monthly bill starts. Pick where it runs.
-        </SectionHead>
-
-        <div className="mt-8 grid gap-4 sm:grid-cols-2">
-          {GO_LIVE.map((g) => (
-            <div key={g.name} className="rounded-3xl border border-line bg-surface p-6">
-              <h3 className="text-[15px] font-semibold tracking-tight">{g.name}</h3>
-              <p className="mt-4 flex items-baseline gap-2">
-                <span className="text-[2.1rem] font-semibold leading-none tracking-tight">{g.price}</span>
-                <span className="text-[12.5px] text-faint">one time</span>
-              </p>
-              <p className="mt-3 inline-block rounded-lg border border-line bg-surface-2 px-2.5 py-1 font-mono text-[12px] text-accent">
-                {g.detail}
-              </p>
-              <p className="mt-4 text-[13.5px] leading-relaxed text-muted">{g.copy}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------------------------------------------ connect */
-
-function Connect() {
-  return (
-    <section className="mx-auto max-w-6xl px-5 py-16">
-      <SectionHead eyebrow={CONNECT.eyebrow} title={CONNECT.head}>
-        {CONNECT.copy}
-      </SectionHead>
-
-      <div className="mt-10 grid gap-4 lg:grid-cols-[1.15fr_1fr]">
-        <div className="relative overflow-hidden rounded-3xl border border-accent/25 bg-accent-wash/40 p-7 sm:p-8">
-          <div className="pointer-events-none absolute -right-16 -top-16 size-64 rounded-full bg-accent/8 blur-3xl" />
-          <h3 className="text-[15px] font-semibold tracking-tight">{CONNECT.name}</h3>
-          <p className="mt-4 flex items-baseline gap-2">
-            <span className="text-[2.4rem] font-semibold leading-none tracking-tight">{CONNECT.price}</span>
-            <span className="text-[12.5px] text-faint">{CONNECT.per}</span>
-          </p>
-          <p className="mt-3 text-[12.5px] text-faint">{CONNECT.allIn}</p>
-          <ul className="mt-6 space-y-2.5 border-t border-line-soft pt-6">
-            {CONNECT.items.map((item) => (
-              <li key={item} className="flex items-start gap-2 text-[13.5px] leading-snug text-muted">
-                <Check />
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="rounded-3xl border border-line bg-surface p-7 sm:p-8">
-          <h3 className="text-[15px] font-semibold tracking-tight">{CONNECT.setup.name}</h3>
-          <p className="mt-4 flex items-baseline gap-2">
-            <span className="text-[2.4rem] font-semibold leading-none tracking-tight">
-              {CONNECT.setup.price}
-            </span>
-            <span className="text-[12.5px] text-faint">{CONNECT.setup.per}</span>
-          </p>
-          <p className="mt-5 border-t border-line-soft pt-5 text-[13.5px] leading-relaxed text-muted">
-            {CONNECT.setup.copy}
-          </p>
-        </div>
-      </div>
-
-      <div className="mt-4 grid gap-4 lg:grid-cols-[1.15fr_1fr]">
-        <p className="rounded-3xl border border-line-soft bg-surface/50 p-6 text-[13.5px] leading-relaxed text-muted">
-          {CONNECT.systems}
-        </p>
-        <p className="rounded-3xl border border-line-soft bg-surface/50 p-6 text-[13.5px] leading-relaxed text-faint">
-          {CONNECT.caveat}
-        </p>
-      </div>
-    </section>
-  );
-}
-
 /* -------------------------------------------------------------------- terms */
 
 function Terms() {
   return (
-    <section className="mx-auto max-w-6xl px-5 py-16">
-      <SectionHead eyebrow="What you are signing" title="The terms, in plain words, before anybody sends a contract." />
+    <section className="border-y border-line-soft bg-shell/40 py-16">
+      <div className="mx-auto max-w-6xl px-5">
+        <SectionHead eyebrow="What you are signing" title="The terms, in plain words, before anybody sends a contract." />
 
-      <dl className="mt-8 grid gap-4 sm:grid-cols-2">
-        {TERMS.map((t) => (
-          <div key={t.b} className="rounded-3xl border border-line bg-surface p-6">
-            <dt className="text-[14.5px] font-semibold tracking-tight">{t.b}</dt>
-            <dd className="mt-2.5 text-[13.5px] leading-relaxed text-muted">{t.t}</dd>
-          </div>
-        ))}
-      </dl>
-    </section>
-  );
-}
-
-/* --------------------------------------------------------------- cross link */
-
-function CrossLink() {
-  return (
-    <section className="mx-auto max-w-6xl px-5 pb-16">
-      <div className="rounded-3xl border border-line-soft bg-surface/50 p-7 sm:p-9">
-        <h2 className="text-[clamp(1.2rem,2.3vw,1.5rem)] font-semibold leading-snug tracking-tight">
-          Run something other than a spa?
-        </h2>
-        <p className="mt-3 max-w-2xl text-[14.5px] leading-relaxed text-muted">
-          DataDay Studio built Reserve My Spot for one location&rsquo;s specific problem. If yours is
-          different, that is the work the studio does. An $89 proof puts a working version of your idea on
-          the internet inside a week.
-        </p>
-        <a
-          href="https://dataday.studio"
-          className="mt-5 inline-flex h-11 items-center rounded-2xl border border-line bg-surface-2 px-5 text-[14px] font-medium transition-colors hover:border-faint"
-        >
-          dataday.studio
-        </a>
+        <dl className="mt-8 grid gap-4 sm:grid-cols-3">
+          {TERMS.map((t) => (
+            <div key={t.b} className="rounded-3xl border border-line bg-surface p-6">
+              <dt className="text-[14.5px] font-semibold tracking-tight">{t.b}</dt>
+              <dd className="mt-2.5 text-[13.5px] leading-relaxed text-muted">{t.t}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
     </section>
   );
@@ -275,15 +174,14 @@ function CrossLink() {
 
 function Cta() {
   return (
-    <section className="mx-auto max-w-6xl px-5 pb-24">
+    <section className="mx-auto max-w-6xl px-5 py-24">
       <div className="rounded-3xl border border-line bg-surface p-8 text-center sm:p-12">
         <h2 className="text-[clamp(1.6rem,3.4vw,2.25rem)] font-semibold leading-tight tracking-tight">
           Tell us how your line works today.
         </h2>
         <p className="mx-auto mt-3 max-w-xl text-[15px] leading-relaxed text-muted">
-          Send over what you run, how many stations each service has, and when your busiest hour hits. We
-          will come back with the plan that fits and what the first month actually costs. Nobody has to get
-          on a call for that.
+          Send over what you run, how many stations each service has, and whether you want us to connect to
+          your booking software. We will come back with the plan that fits and what the first month costs.
         </p>
         <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
           <Link
