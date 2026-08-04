@@ -610,8 +610,8 @@ function Pilot() {
           </Link>
         </div>
         <p className="mt-5 text-[13px] text-faint">
-          A single location is $189 a month, and the rate per location comes down as you add more. Wiring it
-          into the salon software you already run is $100 a location on top of that.
+          A single location is $189 a month, everything in. Run more than one and the rate comes down. Wiring
+          it into the salon software you already run is $100 a location on top of that.
         </p>
       </div>
     </section>

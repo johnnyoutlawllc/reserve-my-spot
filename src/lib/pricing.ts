@@ -1,47 +1,52 @@
 /*
  * Every number on /pricing lives here.
  *
- * Reserve My Spot is a DataDay Studio product, and a prospect will read both
- * pricing pages in one sitting. One rule follows from that: no DataDay monthly
- * price is reused for a Reserve My Spot plan. $169 buys a custom app on your own
- * domain with a dedicated database over there, and matching that number here
- * would make this look like less for the same money. The one-time go-live fees
- * are $250 and $500 to match DataDay exactly, and the branding add-on is
- * +$80/mo, the same delta as DataDay's $89 to $169 step.
+ * ON THE SHAPE OF THIS, because it was rebuilt in August 2026. There is one
+ * product, one feature set, and one published price: $189 per location, per
+ * month, everything in. It used to be a four step location ladder ($189 / $159 /
+ * $129 / quote) and that came off the page. The market we actually sell to is
+ * single location, our own copy says most places "start here and stay here," and
+ * the ladder printed three extra numbers for a segment that is a real
+ * conversation anyway. A chain's questions are about its POS, its franchise
+ * agreements and who owns the member list, none of which fit in a price cell, so
+ * multiple locations now route to a conversation instead of a pre-quoted rate.
+ * If the single number has to move, move it. Do not reprint a ladder.
  *
- * The DataDay professional services ladder (Quarterly / Monthly / Bi-Weekly /
- * Weekly Upgrades) used to be reproduced here as a SERVICES export, alongside a
- * section comparing this to having an app built from scratch. Both came off the
- * page in August 2026. They read as filler, and a spa shopping for a way to run
- * its line does not need a second price ladder or a hypothetical build quote in
- * the middle of one. Send anyone asking for build hours to dataday.studio.
+ * ON NOT REINTRODUCING FEATURE TIERS. This was drafted once as three named
+ * bundles (Desk, Drive, Chain) and thrown out, because holding the live driving
+ * ETA back as the paywall shipped a cheap tier without the one thing that makes
+ * the product worth buying. The rule that came out of that still holds: the
+ * published product is complete. The member app, the front desk board, the
+ * driving ETA and the admin console are all in the $189. Connect (below) is an
+ * optional layer that reads salon software a spa already runs. It is not a
+ * withheld core feature, it is a genuinely separate capability with its own
+ * marginal cost, which is why it is priced on its own and not by gating the base.
+ *
+ * Reserve My Spot is a DataDay Studio product and a prospect reads both pricing
+ * pages in one sitting, so no DataDay monthly price is reused here. The one-time
+ * go-live fees are $250 and $500 to match DataDay exactly. Own-domain used to
+ * carry a +$80/mo branding add-on on top of the $500; that add-on is gone. It
+ * was a third pricing axis nobody expected, a monthly charge bolted onto a
+ * one-time fee, and it was the most surprising line on the page. Own domain is
+ * now simply the $500 launch, branded, at the same $189/mo. That leaves the
+ * monthly at $189 against DataDay's $169 own-domain rate, which is deliberate:
+ * this is a full product, not a generic site, and it should not read as cheaper.
  *
  * Positioning: price against vertical spa software ($129 to $176), not generic
  * queue tools ($29 to $59). Never describe this as waitlist software on a
  * public page. That phrase drops the reader into a $31 comparison set.
  *
- * ON THE SHAPE OF THIS. There is one product and one feature set, and the only
- * thing that moves the price is how many locations you run. It was drafted as
- * three named feature bundles (Desk, Drive, Chain) and that was thrown out in
- * August 2026: the names told a buyer nothing, and holding the live driving ETA
- * back as the paywall meant the cheap tier shipped without the one thing that
- * makes this product worth buying. Nobody was supposed to buy that tier anyway.
- * Selling a deliberately worse version of your own pitch is not a pricing
- * strategy. Do not reintroduce feature tiers. If a number has to move, move the
- * per-location rate.
- *
- * ON THE COST OF A LOCATION, because it decides whether the entry rate works.
- * The marginal cost of one more location is close to a dollar a month. Supabase
- * Pro ($25/mo) and Vercel Pro ($20/mo) are shared across every project, a
- * location writes on the order of 1,500 rows a month, and the only thing that
- * scales per location is realtime connections: roughly 20 to 30 concurrent at
- * peak against Pro's 500, so about fifteen locations before an add-on is needed.
+ * ON THE COST OF A LOCATION, because it decides whether $189 works. The marginal
+ * cost of one more location is close to a dollar a month. Supabase Pro ($25/mo)
+ * and Vercel Pro ($20/mo) are shared across every project, a location writes on
+ * the order of 1,500 rows a month, and the only thing that scales per location
+ * is realtime connections: roughly 20 to 30 concurrent at peak against Pro's 500,
+ * so about fifteen locations before an add-on is needed.
  *
  * The driving ETA costs nothing. It is computed in `lib/geo.ts` from a haversine
  * straight-line distance and a fixed speed table, not from a routing API, so
- * there is no metered mapping service behind it and no allowance to publish. A
- * previous version of this file claimed one. If a real routing provider is ever
- * wired in, that changes and this comment has to change with it.
+ * there is no metered mapping service behind it and no allowance to publish. If a
+ * real routing provider is ever wired in, that changes and this comment with it.
  *
  * So the real cost of a location is support hours, not servers. At $189 and a
  * notional $100 an hour, a location breaks even somewhere near 1.8 hours of
@@ -50,59 +55,17 @@
  * commercial features and not just nice ones.
  */
 
-export type Plan = {
-  id: 'single' | 'few' | 'many' | 'more';
-  name: string;
-  range: string;
-  price: string;
-  per: string;
-  copy: string;
-  /** Set on the tiers that are a discount off the single-location rate. */
-  saving?: string;
+/** The one published price. Everything a spa runs is in it. */
+export const PRICE = {
+  monthly: '$189',
+  per: 'per location, per month',
+  annual: '$1,890',
+  annualNote: 'Pay for the year and you pay for ten months, so two are on us.',
+  chains:
+    'Running more than one location? The rate comes down, and past a couple of stores the questions are about your POS, your franchise agreements and who owns the member list. That takes a real conversation, so tell us your count and we will quote it.',
 };
 
-/**
- * Priced per location, per month, and the rate drops as you add locations.
- * Ranges do not overlap: 1, 2 to 5, 6 to 20, more than 20.
- */
-export const PLANS: Plan[] = [
-  {
-    id: 'single',
-    name: 'Single location',
-    range: 'One location',
-    price: '$189',
-    per: 'per month',
-    copy: 'A single spa with one front desk, running the whole product. Most of the places we talk to start here and stay here.',
-  },
-  {
-    id: 'few',
-    name: 'Two to five locations',
-    range: '2 to 5 locations',
-    price: '$159',
-    per: 'per location, per month',
-    copy: 'Each location runs its own board with its own services and hours, and you get one view across all of them.',
-    saving: '$30 a location off the single rate',
-  },
-  {
-    id: 'many',
-    name: 'Six to twenty locations',
-    range: '6 to 20 locations',
-    price: '$129',
-    per: 'per location, per month',
-    copy: 'Build a service menu once and push it out to every location, or let each one keep its own. Regional rollups and per-location reporting are in here too.',
-    saving: '$60 a location off the single rate',
-  },
-  {
-    id: 'more',
-    name: 'More than twenty',
-    range: 'Over 20 locations',
-    price: 'Let us talk',
-    per: 'we will quote it',
-    copy: 'Past twenty locations the questions are usually about your POS, your franchise agreements, and who owns the member list. That takes a real conversation.',
-  },
-];
-
-/** Everything below is in every plan. There is no cheaper version missing any of it. */
+/** Everything below is in the price. There is no cheaper version missing any of it. */
 export const INCLUDED: { group: string; items: string[] }[] = [
   {
     group: 'The member app',
@@ -148,19 +111,12 @@ export const GO_LIVE = [
     copy: 'Your spa runs at an address of ours. Setup, loading the membership list and training the desk are all inside this number, charged the day you open it to members.',
   },
   {
-    name: 'On your own domain',
+    name: 'On your own domain, branded',
     price: '$500',
     detail: 'book.yourspa.com',
-    copy: 'Everything in the first one, and then we move it onto an address you own. DNS, certificates, sign-in and email all come from your name.',
+    copy: 'Everything in the first one, and then we move it onto an address you own with your logo and name on every screen a member touches. DNS, certificates, sign-in and email all come from you. No extra monthly for it, just the higher one-time.',
   },
 ];
-
-export const ADD_ON = {
-  name: 'Your own domain and branding',
-  price: '+$80',
-  per: 'per month',
-  copy: 'Your logo and your name on every screen a member touches. Goes with the $500 go-live fee.',
-};
 
 /*
  * CONNECT: reading the salon software a spa already runs.
@@ -184,17 +140,16 @@ export const ADD_ON = {
  * true. Do not loosen this without an adapter actually running at a paying
  * location.
  *
- * WHY +$100/MO, FLAT. Value first: at a location doing a hundred desk
- * interactions a day, killing the double entry is on the order of 25 hours of
- * desk labor a month, so $100 captures well under a third of what it saves and
- * survives being questioned. It lands a single location at $289, which keeps the
- * page on the ladder it already uses. It is NOT discounted at higher location
- * counts, unlike the base rate: the base discount reflects setup and support that
- * genuinely amortizes across a chain, and integration support does not, because
- * every store has its own POS install, its own equipment list and its own
- * network. Five connected locations is $500/mo, which is one Monthly Upgrades
- * plan at DataDay, and that is deliberate. It is what funds the maintenance when
- * a vendor ships a breaking change.
+ * WHY +$100/MO, and why it is the same at every location count. Value first: at a
+ * location doing a hundred desk interactions a day, killing the double entry is
+ * on the order of 25 hours of desk labor a month, so $100 captures well under a
+ * third of what it saves and survives being questioned. It lands a connected
+ * location at $289 all in. It does not come down with location count the way the
+ * base rate does for a chain: base support amortizes across stores, integration
+ * support does not, because every store has its own POS install, its own
+ * equipment list and its own network. Connecting five stores is $500/mo, one
+ * Monthly Upgrades plan at DataDay, and that is deliberate. It is what funds the
+ * maintenance when a vendor ships a breaking change.
  *
  * WHY THERE IS A ONE-TIME FEE AT ALL. Without it the first adapter for a vendor
  * is roughly forty hours of engineering recovered at $100/mo, which never pays
@@ -209,11 +164,6 @@ export const ADD_ON = {
  * because the same number regardless of what they run is itself the proof that
  * we are not afraid of their system, so the page says so out loud.
  *
- * This supersedes Rule 2 of the August 2026 pricing handoff, which routed
- * integration work to DataDay's Monthly Upgrades. Building an adapter is still
- * professional services. Keeping one alive is a subscription, and those are two
- * different things that both have to get paid for.
- *
  * ON NOT WRITING BACK. We read. We do not create sessions, take payment or touch
  * memberships in anyone's POS. That is a genuine engineering boundary and also
  * the whole sales answer to "you are not touching my system of record", so it is
@@ -222,10 +172,11 @@ export const ADD_ON = {
  * we are not going near them.
  */
 export const CONNECT = {
-  eyebrow: 'Connected setup',
+  eyebrow: 'Optional: connect it to your software',
   name: 'Connect it to the software you already run',
   price: '+$100',
   per: 'per location, per month',
+  allIn: 'That is $289 a month all in for a connected location.',
   head: 'Stop typing the same member into two systems.',
   copy: 'Your front desk already runs something that knows the member, the membership and which beds are lit right now. Left alone, our board and that one drift apart by the middle of a Saturday and your staff ends up trusting neither. Connected, we read yours, and the board stops being a second set of books somebody has to keep.',
   items: [
@@ -248,10 +199,17 @@ export const CONNECT = {
     'How it goes. We deal with your software vendor so you do not have to, and you approve what we read before we read any of it. Some vendors move faster than others, and you will know where yours lands before you commit to anything.',
 };
 
-/** Deliberately the lowest published number on the page. */
+/*
+ * FOUNDING. This used to print "$129 a month for twenty-four months" right next
+ * to the $189 sticker, which made the sticker look negotiable and left a reader
+ * reconciling two first-location prices on one page. An early rate is a
+ * conversation and a limited cohort, not a permanent second ladder in print, so
+ * the banner invites it without naming a competing number. The real rate gets
+ * agreed in the conversation.
+ */
 export const FOUNDING = {
-  head: 'Founding location rate',
-  body: 'We take on a few locations at a time. The first five lock $129 a month for twenty-four months, which is what a twenty-location chain pays, and it holds through both renewals.',
+  head: 'Founding locations',
+  body: 'We are taking on a small first group of spas at a held rate that locks for the length of the term. It is a limited cohort and it is close to signed. If you want in, say so and we will talk numbers.',
 };
 
 /** DataDay's commitments, in DataDay's words. Same terms, same policy. */
